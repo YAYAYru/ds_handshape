@@ -1,0 +1,5 @@
+outs:
+- md5: cbf5819106f8893b61887dd6d41bb0fc.dir
+  size: 369039
+  nfiles: 11
+  path: sl_hand_label
