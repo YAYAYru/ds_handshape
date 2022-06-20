@@ -1,0 +1,5 @@
+outs:
+- md5: 1eff78fa2d600fb5911794963b7033e9.dir
+  size: 1901410
+  nfiles: 32
+  path: sl_hand_json
