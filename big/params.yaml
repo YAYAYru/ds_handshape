@@ -52,15 +52,15 @@ select_features:
 
 to_categorical:
   outs:
-    path_skelet_hand_f63_json: models/skelet_hand_f63.json
+    path_skelet_hand_f63_json: models/skelet_hand_f19.json
     path_train_y_encoder: data/processed/train_y_encoder.npy
     path_val_y_encoder: data/processed/val_y_encoder.npy
     path_test_y_encoder: data/processed/test_y_encoder.npy
 
 train:
-  epochs: 1000
+  epochs: 100
   outs:
-    path_model: models/skelet_hand_f63.h5
+    path_model: models/skelet_hand_f19.h5
   plots:
     path_history: reports/train_history.csv
 

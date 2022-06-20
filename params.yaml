@@ -52,7 +52,7 @@ select_features:
 
 to_categorical:
   outs:
-    path_skelet_hand_f63_json: models/skelet_hand_f63.json
+    path_skelet_hand_f63_json: models/skelet_hand_f19.json
     path_train_y_encoder: data/processed/train_y_encoder.npy
     path_val_y_encoder: data/processed/val_y_encoder.npy
     path_test_y_encoder: data/processed/test_y_encoder.npy
