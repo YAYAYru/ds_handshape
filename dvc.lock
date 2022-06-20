@@ -174,11 +174,11 @@ stages:
         train.epochs: 100
     outs:
     - path: models/skelet_hand_f63.h5
-      md5: ab4719f3cb3ecaa3c0375b9269ee6218
+      md5: ee6c3a80ad207a62155ab23591cefc53
       size: 56656
     - path: reports/train_history.csv
-      md5: 4f39c44c7325b007e67f115aebd5e959
-      size: 8037
+      md5: 864a1189ed222e924eb708c72afa3609
+      size: 8027
   predict:
     cmd: python3 big/src/stages/predict.py params.yaml
     deps:
@@ -195,26 +195,26 @@ stages:
       md5: 655610aa01c002f72251800c1773a097
       size: 41320
     - path: models/skelet_hand_f63.h5
-      md5: ab4719f3cb3ecaa3c0375b9269ee6218
+      md5: ee6c3a80ad207a62155ab23591cefc53
       size: 56656
     outs:
     - path: data/processed/test_y_pred.npy
-      md5: 514ea7d44af971019112ae10f2f0159b
+      md5: 7fc23a4cbd8f17971f8174d81a0fcc1c
       size: 5552
     - path: data/processed/test_y_pred_proba.npy
-      md5: bbe5157d052169024056a32a53b38291
+      md5: 9abe9238be626f0b4c85fd6ff32bb905
       size: 5552
     - path: data/processed/train_y_pred.npy
-      md5: 99d883d6c0d56b1724136a6f4a7bba11
+      md5: beb5c963ed6bed38ba415d93385a147e
       size: 17440
     - path: data/processed/train_y_pred_proba.npy
-      md5: b042589f7a9b769946f2760b5c4a5bf7
+      md5: 59830ac90920e7fba447d67d6ed76e09
       size: 17440
     - path: data/processed/val_y_pred.npy
       md5: c896709e8eaa918e95b6117840f1df63
       size: 4464
     - path: data/processed/val_y_pred_proba.npy
-      md5: f123eb73e8a36844bf7089a48c4326f9
+      md5: 0a243447318881e7000875afce585ee9
       size: 4464
   evaluate:
     cmd: python3 big/src/stages/evaluate.py params.yaml
@@ -226,19 +226,19 @@ stages:
       md5: ce458ca21f7c88277886631ef26a1244
       size: 997
     - path: data/processed/test_y_pred.npy
-      md5: 514ea7d44af971019112ae10f2f0159b
+      md5: 7fc23a4cbd8f17971f8174d81a0fcc1c
       size: 5552
     - path: data/processed/test_y_pred_proba.npy
-      md5: bbe5157d052169024056a32a53b38291
+      md5: 9abe9238be626f0b4c85fd6ff32bb905
       size: 5552
     - path: data/processed/train_y.npy
       md5: 79b52fcf30c64d88eb6b3b8babbb2d6e
       size: 2485
     - path: data/processed/train_y_pred.npy
-      md5: 99d883d6c0d56b1724136a6f4a7bba11
+      md5: beb5c963ed6bed38ba415d93385a147e
       size: 17440
     - path: data/processed/train_y_pred_proba.npy
-      md5: b042589f7a9b769946f2760b5c4a5bf7
+      md5: 59830ac90920e7fba447d67d6ed76e09
       size: 17440
     - path: data/processed/val_y.npy
       md5: 07e3882fb24c146b1551c7d0b5eade17
@@ -247,15 +247,15 @@ stages:
       md5: c896709e8eaa918e95b6117840f1df63
       size: 4464
     - path: data/processed/val_y_pred_proba.npy
-      md5: f123eb73e8a36844bf7089a48c4326f9
+      md5: 0a243447318881e7000875afce585ee9
       size: 4464
     outs:
     - path: reports/test.json
-      md5: f1ba5a3bfa9a949630c4a526bb21c308
+      md5: 7ac462600805bf95fd4102437ec8f4fb
       size: 31
     - path: reports/train.json
-      md5: bb90c58664044baba1a0e2ec129f5b32
+      md5: fd9f8b6bccef6a421a448ae664b97db3
       size: 31
     - path: reports/val.json
-      md5: cea7edb4d97965e2bd0c15cda9f96670
-      size: 31
+      md5: 8c198080bdb647e300671cd071e39d8c
+      size: 30
