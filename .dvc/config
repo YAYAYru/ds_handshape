@@ -1,2 +1,5 @@
 [core]
     autostage = true
+    remote = alexeyayaya_gmail
+['remote "alexeyayaya_gmail"']
+    url = gdrive://13Ofnsm3M9HQrT4GbSOTZlcrTlN9Tcr8A

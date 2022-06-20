@@ -103,7 +103,7 @@ stages:
     - ${train.outs.path_model}
     plots:
     - ${train.plots.path_history}:
-        cache: false
+        #cache: false
         x: epoch
         y: val_accuracy
         title: Train history
@@ -141,12 +141,12 @@ stages:
       - ${predict.outs.path_test_y_pred}
       - ${predict.outs.path_test_y_pred_proba}
     metrics:
-    - ${evaluate.metrics.path_report_train}:
-        cache: false
-    - ${evaluate.metrics.path_report_val}:
-        cache: false
-    - ${evaluate.metrics.path_report_test}:
-        cache: false
+    - ${evaluate.metrics.path_report_train}
+        #cache: false
+    - ${evaluate.metrics.path_report_val}
+        #cache: false
+    - ${evaluate.metrics.path_report_test}
+        #cache: false
 
   #app:
     #cmd: python3 big/src/stages/app.py params.yaml
