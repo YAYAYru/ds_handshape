@@ -1,0 +1,5 @@
+venv
+big/src/models/__pycache__/
+big/src/features/__pycache__/
+big/src/__pycache__/
+.vscode/

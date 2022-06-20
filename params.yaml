@@ -1,0 +1,101 @@
+video2skelet:
+  bigdata: 1 
+  deps:
+    path_video_folders: data/raw/sl_hand
+  outs:
+    path_json_xyz_folders: data/interim/sl_hand_json
+
+json2csv:
+  deps:
+    path_folder_csv: data/raw/sl_hand_label
+    path_json_xyz_folders: data/interim/sl_hand_json
+  outs:
+    path_csv: data/interim/xyz_63f.csv
+
+xyz2angle:
+  deps:
+    path_xyz_63f_csv: data/interim/xyz_63f.csv
+  outs:
+    path_angle_19f_csv: data/interim/angle_19f.csv
+
+select_label:
+  list_fsw_orientation: ["00", "01"]
+  deps:
+    path_fsw_csv: data/interim/angle_19f.csv
+  outs:
+    path_fsw_handshape_csv: data/interim/angle_19f_handshape.csv
+
+split_trainval_test:
+  test_size: 0.2
+  random_state: 42
+  deps:
+    path_angle_19f_handshape_csv: data/interim/angle_19f_handshape.csv
+  outs:
+    path_train_val_csv: data/processed/train_val.csv
+    path_test_csv: data/processed/test.csv
+
+train_val_split:
+  val_size: 0.2
+  random_state: 42
+  outs:
+    path_train_csv: data/processed/train.csv
+    path_val_csv: data/processed/val.csv
+
+select_features:
+  outs:
+    path_train_x: data/processed/train_x.npy
+    path_val_x: data/processed/val_x.npy
+    path_test_x: data/processed/test_x.npy  
+    path_train_y: data/processed/train_y.npy
+    path_val_y: data/processed/val_y.npy
+    path_test_y: data/processed/test_y.npy
+
+to_categorical:
+  outs:
+    path_skelet_hand_f63_json: models/skelet_hand_f63.json
+    path_train_y_encoder: data/processed/train_y_encoder.npy
+    path_val_y_encoder: data/processed/val_y_encoder.npy
+    path_test_y_encoder: data/processed/test_y_encoder.npy
+
+train:
+  epochs: 100
+  outs:
+    path_model: models/skelet_hand_f63.h5
+  plots:
+    path_history: reports/train_history.csv
+
+predict:
+  outs:
+    path_train_y_pred: data/processed/train_y_pred.npy
+    path_val_y_pred: data/processed/val_y_pred.npy
+    path_test_y_pred: data/processed/test_y_pred.npy
+    path_train_y_pred_proba: data/processed/train_y_pred_proba.npy
+    path_val_y_pred_proba: data/processed/val_y_pred_proba.npy
+    path_test_y_pred_proba: data/processed/test_y_pred_proba.npy
+  metrics:
+    path_report_predict: reports/predict.json
+
+evaluate:
+  metrics:
+    path_report_train: reports/train.json
+    path_report_val: reports/val.json
+    path_report_test: reports/test.json
+  plots:
+    path_ytrain_ypred: reports/ytrain_ypred.csv
+    path_classreport_train: reports/train_classreport.csv
+    path_yval_ypred: reports/yval_ypred.csv
+    path_classreport_val: reports/val_classreport.csv
+    path_ytest_ypred: reports/ytestypred.csv
+    path_classreport_test: reports/test_classreport.csv
+
+    path_confusion_matrix_train: reports/confusion_matrix_train
+    path_confusion_matrix_val: reports/confusion_matrix_val
+    path_confusion_matrix_test: reports/confusion_matrix_test
+
+    path_confusion_matrix_norm_train: reports/confusion_matrix_norm_train
+    path_confusion_matrix_norm_val: reports/confusion_matrix_norm_val
+    path_confusion_matrix_norm_test: reports/confusion_matrix_norm_test
+
+app:
+  metrics:
+    path_reports_app: reports/app.json

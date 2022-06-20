@@ -1,0 +1,163 @@
+stages:
+
+  #video2skelet:
+  #  cmd: python3 src/stages/video2skelet.py params.yaml
+  #  deps:
+  #  - src/stages/video2skelet.py
+  #  - ${video2skelet.deps.path_video_folders}
+  #  params:
+  #  - video2skelet.bigdata
+  #  outs:
+  #  - ${video2skelet.outs.path_json_xyz_folders}
+
+  json2csv:
+    cmd: python3 src/stages/json2csv.py params.yaml
+    deps:
+    - src/stages/json2csv.py
+    - ${json2csv.deps.path_folder_csv}
+    - ${json2csv.deps.path_json_xyz_folders}
+    outs:
+    - ${json2csv.outs.path_csv}
+  
+  xyz2angle:
+    cmd: python3 src/stages/xyz2angle.py params.yaml
+    deps:
+    - src/stages/xyz2angle.py
+    - ${xyz2angle.deps.path_xyz_63f_csv}
+    outs:
+    - ${xyz2angle.outs.path_angle_19f_csv}
+
+  select_label:
+    cmd: python3 src/stages/select_label.py params.yaml
+    deps:
+    - src/stages/select_label.py
+    - ${select_label.deps.path_fsw_csv}
+    params:
+    - select_label.list_fsw_orientation
+    outs:
+    - ${select_label.outs.path_fsw_handshape_csv}
+
+  split_trainval_test:
+    cmd: python3 src/stages/split_trainval_test.py params.yaml
+    deps:
+    - src/stages/split_trainval_test.py
+    - ${split_trainval_test.deps.path_angle_19f_handshape_csv}
+    params:
+    - split_trainval_test.test_size
+    - split_trainval_test.random_state
+    outs:
+    - ${split_trainval_test.outs.path_train_val_csv}
+    - ${split_trainval_test.outs.path_test_csv}
+
+  train_val_split:
+    cmd: python3 src/stages/train_val_split.py params.yaml
+    deps:
+    - src/stages/train_val_split.py
+    - ${split_trainval_test.outs.path_train_val_csv}
+    params:
+    - train_val_split.val_size
+    - train_val_split.random_state
+    outs:
+    - ${train_val_split.outs.path_train_csv}
+    - ${train_val_split.outs.path_val_csv}
+
+  select_features:
+    cmd: python3 src/stages/select_features.py params.yaml
+    deps:
+    - src/stages/select_features.py
+    - ${train_val_split.outs.path_train_csv}
+    - ${train_val_split.outs.path_val_csv}
+    - ${split_trainval_test.outs.path_test_csv}
+    outs:
+    - ${select_features.outs.path_train_x}
+    - ${select_features.outs.path_val_x}
+    - ${select_features.outs.path_test_x}
+    - ${select_features.outs.path_train_y}
+    - ${select_features.outs.path_val_y}
+    - ${select_features.outs.path_test_y}
+  
+  to_categorical:
+    cmd: python3 src/stages/to_categorical.py params.yaml
+    deps:
+    - src/stages/to_categorical.py
+    - ${select_features.outs.path_train_y}
+    - ${select_features.outs.path_val_y}
+    - ${select_features.outs.path_test_y}
+    outs:
+    - ${to_categorical.outs.path_skelet_hand_f63_json}
+    - ${to_categorical.outs.path_train_y_encoder}
+    - ${to_categorical.outs.path_val_y_encoder}
+    - ${to_categorical.outs.path_test_y_encoder}
+
+  train:
+    cmd: python3 src/stages/train.py params.yaml
+    deps:
+    - src/stages/train.py
+    - ${select_features.outs.path_train_x}
+    - ${select_features.outs.path_val_x}
+    - ${to_categorical.outs.path_train_y_encoder}
+    - ${to_categorical.outs.path_val_y_encoder}
+    params:
+    - train.epochs
+    outs:
+    - ${train.outs.path_model}
+    plots:
+    - ${train.plots.path_history}:
+        cache: false
+        x: epoch
+        y: val_accuracy
+        title: Train history
+
+  predict:
+    cmd: python3 src/stages/predict.py params.yaml
+    deps:
+      - src/stages/predict.py
+      - ${train.outs.path_model}
+      - ${select_features.outs.path_train_x}
+      - ${select_features.outs.path_val_x}
+      - ${select_features.outs.path_test_x}
+    outs:
+      - ${predict.outs.path_train_y_pred}
+      - ${predict.outs.path_val_y_pred}
+      - ${predict.outs.path_test_y_pred}
+      - ${predict.outs.path_train_y_pred_proba}
+      - ${predict.outs.path_val_y_pred_proba}
+      - ${predict.outs.path_test_y_pred_proba}
+    #metrics:
+    #- ${predict.metrics.path_report_predict}:
+    #    cache: false
+
+  evaluate:
+    cmd: python3 src/stages/evaluate.py params.yaml
+    deps:
+      - src/stages/evaluate.py
+      - ${select_features.outs.path_train_y}
+      - ${predict.outs.path_train_y_pred}
+      - ${predict.outs.path_train_y_pred_proba}
+      - ${select_features.outs.path_val_y}
+      - ${predict.outs.path_val_y_pred}
+      - ${predict.outs.path_val_y_pred_proba}
+      - ${select_features.outs.path_test_y}
+      - ${predict.outs.path_test_y_pred}
+      - ${predict.outs.path_test_y_pred_proba}
+    metrics:
+    - ${evaluate.metrics.path_report_train}:
+        cache: false
+    - ${evaluate.metrics.path_report_val}:
+        cache: false
+    - ${evaluate.metrics.path_report_test}:
+        cache: false
+
+  #app:
+    #cmd: python3 src/stages/app.py params.yaml
+    #deps:
+    #  - src/stages/app.py
+    #  - ${train.outs.path_model}
+    #  - ${to_categorical.outs.path_skelet_hand_f63_json}
+    #  - ${video2skelet.deps.path_video_folders}
+    #metrics:
+    #  - ${app.metrics.path_reports_app}:
+    #     cache: false    
+
+    # TODO dvc_params_yaml
+    # После dvc repro автоматически перезаписать с dvc.yaml и params.yaml на dvc.yaml и params.yaml
