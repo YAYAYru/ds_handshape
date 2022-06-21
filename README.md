@@ -10,6 +10,10 @@ dvc repro
 ```bash
 dvc repro big/dvc.yaml
 ``` 
+- Открыть камеру, показать руку камере и нажать на "Пробел", чтобы детектировать руку и через `1` сек выводить другое окно. `0` - номер камеры
+```bash
+python3 big/src/apps/word_image.py 0 1
+```
 
 ## Project Organization(Примерно)
 ------------
