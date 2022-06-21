@@ -103,7 +103,7 @@ stages:
     - ${train.outs.path_model}
     plots:
     - ${train.plots.path_history}:
-        #cache: false
+        cache: true
         x: epoch
         y: val_accuracy
         title: Train history
@@ -141,23 +141,23 @@ stages:
       - ${predict.outs.path_test_y_pred}
       - ${predict.outs.path_test_y_pred_proba}
     metrics:
-    - ${evaluate.metrics.path_report_train}
-        #cache: false
-    - ${evaluate.metrics.path_report_val}
-        #cache: false
-    - ${evaluate.metrics.path_report_test}
-        #cache: false
+    - ${evaluate.metrics.path_report_train}:
+        cache: true
+    - ${evaluate.metrics.path_report_val}:
+        cache: true
+    - ${evaluate.metrics.path_report_test}:
+        cache: true
 
-  #app:
-    #cmd: python3 src/stages/app.py params.yaml
-    #deps:
-    #  - src/stages/app.py
-    #  - ${train.outs.path_model}
-    #  - ${to_categorical.outs.path_skelet_hand_f63_json}
-    #  - ${video2skelet.deps.path_video_folders}
-    #metrics:
-    #  - ${app.metrics.path_reports_app}:
-    #     cache: false    
+  app:
+    cmd: python3 src/stages/app.py params.yaml
+    deps:
+      - src/stages/app.py
+      - ${train.outs.path_model}
+      - ${to_categorical.outs.path_skelet_hand_f63_json}
+      - ${video2skelet.deps.path_video_folders}
+    metrics:
+      - ${app.metrics.path_reports_app}:
+         cache: true    
 
     # TODO dvc_params_yaml
     # После dvc repro автоматически перезаписать с dvc.yaml и params.yaml на dvc.yaml и params.yaml

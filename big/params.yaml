@@ -58,7 +58,7 @@ to_categorical:
     path_test_y_encoder: data/processed/test_y_encoder.npy
 
 train:
-  epochs: 100
+  epochs: 1200
   outs:
     path_model: models/skelet_hand_f19.h5
   plots:
