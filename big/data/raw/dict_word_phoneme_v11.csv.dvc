@@ -1,0 +1,4 @@
+outs:
+- md5: 3e8b4f2dc1566417e0c7d3e6c116a280
+  size: 168543
+  path: dict_word_phoneme_v11.csv

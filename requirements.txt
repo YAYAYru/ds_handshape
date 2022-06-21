@@ -24,3 +24,6 @@ pandas
 mlflow
 seaborn
 pycm
+
+screeninfo==0.8
+sk-video==1.1.10
