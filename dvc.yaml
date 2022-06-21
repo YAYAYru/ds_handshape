@@ -148,16 +148,16 @@ stages:
     - ${evaluate.metrics.path_report_test}
         #cache: false
 
-  #app:
-    #cmd: python3 big/src/stages/app.py params.yaml
-    #deps:
-    #  - big/src/stages/app.py
-    #  - ${train.outs.path_model}
-    #  - ${to_categorical.outs.path_skelet_hand_f63_json}
-    #  - ${video2skelet.deps.path_video_folders}
-    #metrics:
-    #  - ${app.metrics.path_reports_app}:
-    #     cache: false    
+  app:
+    cmd: python3 big/src/stages/app.py params.yaml
+    deps:
+      - big/src/stages/app.py
+      - ${train.outs.path_model}
+      - ${to_categorical.outs.path_skelet_hand_f63_json}
+      - ${video2skelet.deps.path_video_folders}
+    metrics:
+      - ${app.metrics.path_reports_app}:
+         cache: true   
 
     # TODO dvc_params_yaml
     # После dvc repro автоматически перезаписать с dvc.yaml и params.yaml на big/dvc.yaml и big/params.yaml

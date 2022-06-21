@@ -7,32 +7,37 @@ import json
 from big.src.features.workfile import WorkFile
 from big.src.features.skelet_mediapipe import SkeletMediapipe
 from big.src.models.nn import Predicter
+from big.src.features.angle import Angle
 
 def predict_image(np_image, path_model, path_json_for_model):
     print("np_image", np_image.shape)
     sm = SkeletMediapipe()
     np_skelet = sm.image2xyz_multihand(np_image, 1)
-    np_skelet_f63 = np_skelet.reshape(
+    np_xyz_21_3 = np_skelet.reshape(
         np_skelet.shape[0], 
-        np_skelet.shape[1]*np_skelet.shape[2])    
+        np_skelet.shape[1],np_skelet.shape[2]) 
+    a = Angle()
+    np_angles = a.xyz2angles_hand(np_xyz_21_3)       
     model = Predicter()
     model.load_model(path_model)
     model.load_class_list(path_json_for_model)
-    return model.predict_classes(np_skelet_f63)
+    return model.predict_classes(np_angles)
 
 
 def predict_video(np_video, path_model, path_json_for_model):
     print("np_video", np_video.shape)
     sm = SkeletMediapipe()
     np_skelet = sm.video2xyz_multihand(np_video, 1)
-    np_skelet_f63 = np_skelet.reshape(
+    np_xyz_21_3 = np_skelet.reshape(
         np_skelet.shape[0],
-        np_skelet.shape[2]*np_skelet.shape[3]
+        np_skelet.shape[2], np_skelet.shape[3]
     )
+    a = Angle()
+    np_angles = a.xyz2angles_hand(np_xyz_21_3)
     model = Predicter()
     model.load_model(path_model)
     model.load_class_list(path_json_for_model)
-    return model.predict_classes(np_skelet_f63)
+    return model.predict_classes(np_angles)
 
 
 @click.command()

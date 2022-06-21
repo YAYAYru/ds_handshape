@@ -259,3 +259,23 @@ stages:
     - path: reports/val.json
       md5: aed25b639f098d7dd8a85af47b464aae
       size: 31
+  app:
+    cmd: python3 big/src/stages/app.py params.yaml
+    deps:
+    - path: big/src/stages/app.py
+      md5: 7b6928167889073ce781df96383cd9f6
+      size: 2947
+    - path: data/raw/sl_hand
+      md5: cfb3e3adb87ae3d064a5791e736a6658.dir
+      size: 282910552
+      nfiles: 32
+    - path: models/skelet_hand_f19.h5
+      md5: 2083985e681b6f9ab2aebf75383182ca
+      size: 56656
+    - path: models/skelet_hand_f19.json
+      md5: e354d29fb5f5675c78484dfa7faacf9f
+      size: 87
+    outs:
+    - path: reports/app.json
+      md5: 0f78aeb2d8b01ab1828210a747540168
+      size: 54
