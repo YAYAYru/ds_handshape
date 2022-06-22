@@ -60,7 +60,7 @@ def show_skelet_camera_image_hand(device_number, photo_delay_sec):
     print("np_words", np_words)
     view_cv2 = ViewCV2()
     np_image = view_cv2.draw_text(np_image, label)
-    view_cv2.gui_image(1080, np_image)
+    view_cv2.gui_image(640, np_image)
 
 if __name__ == "__main__":
     show_skelet_camera_image_hand()

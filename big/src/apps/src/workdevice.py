@@ -2,11 +2,13 @@ import cv2
 import numpy as np
 
 from src.work_abc import WorkABC
+from src.view_cv2 import ViewCV2
 
 
 class WorkDevice(WorkABC):
     def __init__(self, device) -> None:
         self.__device = device
+        self.__view_cv2 = ViewCV2()
 
     # For write image
     # https://stackoverflow.com/questions/34588464/python-how-to-capture-image-from-webcam-on-click-using-opencv
@@ -25,6 +27,7 @@ class WorkDevice(WorkABC):
                 print("Ignoring empty camera frame.")
                 # If loading a video, use 'break' instead of 'continue'.
                 continue
+            image = self.__view_cv2.ResizeWithAspectRatio(image, 640)
             cv2.imshow("Load image", image)
 
             k = cv2.waitKey(1)
@@ -39,7 +42,8 @@ class WorkDevice(WorkABC):
             if photo:
                 img_counter += 1
 
-            if img_counter > photo_delay * fps:
+            # if img_counter > photo_delay * fps:
+            if img_counter > photo_delay:
                 # SPACE pressed
                 print("Assigned image {}".format(image.shape))
                 return image

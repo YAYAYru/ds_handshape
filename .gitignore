@@ -5,4 +5,5 @@ big/src/__pycache__/
 .vscode/
 big/src/apps/src/__pycache__/
 big/src/apps/__pycache__/
-big/src/stages/__pycache__/app.cpython-38.pyc
+src.egg-info/
+big/src/stages/__pycache__/
