@@ -47,6 +47,8 @@ for i, n in enumerate(np_fsw):
         list_fsw_ori_l.append(n[4:])
 
 np_fsw_shape = np.array(list_fsw_shape)
+
+print("-------------------fsw from files in folders--------------------")
 print("count_1", count_1)
 print("np_fsw_shape[:5]", np_fsw_shape[:5])
 print("np_fsw_shape.shape", np_fsw_shape.shape)
@@ -56,18 +58,19 @@ sort_uniq_shape = sorted(np.unique(np_fsw_shape))
 print("sort_uniq_shape", sort_uniq_shape)
 print("len(sort_uniq_shape)", len(sort_uniq_shape))
 
+print("-------------------fsw from json--------------------")
 f = open(path_json_fsw)
-data = json.load(f)
+json_fsw = json.load(f)
 f.close()
-print("data", len(data))
-list_value = []
-for k in data:
-    for v in data[k]:
-        list_value.append(v)
-print("list_value", sorted(list_value))     
-print("list_value", len(list_value))     
-print("set(list_v", sorted(set(list_value)))
-print("len(set(list_value))", len(set(list_value)))
+print("len(json_fsw)", len(json_fsw))
+list_json_fsw_value = []
+for k in json_fsw:
+    for v in json_fsw[k]:
+        list_json_fsw_value.append(v)
+print("list_json_fsw_value", sorted(list_json_fsw_value))     
+print("list_value", len(list_json_fsw_value))     
+print("set(list_json_fsw_v", sorted(set(list_json_fsw_value)))
+print("len(set(list_json_fsw_value))", len(set(list_json_fsw_value)))
 
 
  
