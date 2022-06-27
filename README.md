@@ -14,6 +14,15 @@ dvc repro big/dvc.yaml
 ```bash
 python3 big/src/apps/word_image.py 0 1
 ```
+- Найти слово в файлах
+```bash
+grep -i 's14c' folder/*.csv
+```
+- Определить статистику о метках по *.csv и ввод одна путь для json и несколько путей для csv
+```bash
+python3 big/src/features/stat_fsw_handshape.py
+```
+
 
 ## Project Organization(Примерно)
 ------------
