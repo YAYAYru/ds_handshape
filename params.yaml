@@ -25,11 +25,18 @@ select_label:
   outs:
     path_fsw_handshape_csv: data/interim/angle_19f_handshape.csv
 
+reduce_label:
+  deps:
+    path_reduce_label_json: data/raw/fsw_handshape.json
+    path_fsw_handshape_csv: data/interim/angle_19f_handshape.csv
+  outs:
+    path_reduce_label_csv: data/interim/reduce_label.csv
+
 split_trainval_test:
   test_size: 0.2
   random_state: 42
   deps:
-    path_angle_19f_handshape_csv: data/interim/angle_19f_handshape.csv
+    path_angle_19f_handshape_csv: data/interim/reduce_label.csv
   outs:
     path_train_val_csv: data/processed/train_val.csv
     path_test_csv: data/processed/test.csv

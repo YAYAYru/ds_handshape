@@ -37,6 +37,15 @@ stages:
     outs:
     - ${select_label.outs.path_fsw_handshape_csv}
 
+  reduce_label:
+    cmd: python3 src/stages/reduce_label.py params.yaml
+    deps:
+    - src/stages/reduce_label.py
+    - ${reduce_label.deps.path_reduce_label_json}
+    - ${reduce_label.deps.path_fsw_handshape_csv}
+    outs:
+    - ${reduce_label.outs.path_reduce_label_csv}
+
   split_trainval_test:
     cmd: python3 src/stages/split_trainval_test.py params.yaml
     deps:
