@@ -4,39 +4,39 @@ stages:
     cmd: python3 src/stages/json2csv.py params.yaml
     deps:
     - path: data/interim/sl_hand_json
-      md5: aaa7a4c2e154e41aa59a6614e5695a24.dir
-      size: 457089626
-      nfiles: 6106
+      md5: c646c4fdcea59487849073df4741d29d.dir
+      size: 461719846
+      nfiles: 6142
     - path: data/raw/sl_hand_label
-      md5: cbf5819106f8893b61887dd6d41bb0fc.dir
-      size: 369039
-      nfiles: 11
+      md5: 25c75b4bb9557ffd7501b387023fefba.dir
+      size: 371530
+      nfiles: 13
     - path: src/stages/json2csv.py
       md5: 904fa8653d418d81b76606d20f3fbff7
       size: 2921
     outs:
     - path: data/interim/xyz_63f.csv
-      md5: 9817c64b2a879521688421eef96a1e92
-      size: 406377466
+      md5: 58ebb7db07739775c9850fd95739150a
+      size: 410524686
   xyz2angle:
     cmd: python3 src/stages/xyz2angle.py params.yaml
     deps:
     - path: data/interim/xyz_63f.csv
-      md5: 9817c64b2a879521688421eef96a1e92
-      size: 406377466
+      md5: 58ebb7db07739775c9850fd95739150a
+      size: 410524686
     - path: src/stages/xyz2angle.py
       md5: 644811ec8cd2d188433e81ffc088dcf0
       size: 1152
     outs:
     - path: data/interim/angle_19f.csv
-      md5: 986ab93ea91f49dfeeeed8395dbaf6dd
-      size: 109038531
+      md5: 26708991b94b0722be3b62679efccbc9
+      size: 110137212
   select_label:
     cmd: python3 src/stages/select_label.py params.yaml
     deps:
     - path: data/interim/angle_19f.csv
-      md5: 986ab93ea91f49dfeeeed8395dbaf6dd
-      size: 109038531
+      md5: 26708991b94b0722be3b62679efccbc9
+      size: 110137212
     - path: src/stages/select_label.py
       md5: 74a9bb8f9c698804e0e7ce5a85d618e0
       size: 1061
@@ -55,8 +55,8 @@ stages:
         - 2e
     outs:
     - path: data/interim/angle_19f_handshape.csv
-      md5: 9c649e56ee6722b1bc9ee6b0f8bab7dd
-      size: 17992128
+      md5: b31355c8a4094d86f58e5a4a1323d954
+      size: 19074873
   split_trainval_test:
     cmd: python3 src/stages/split_trainval_test.py params.yaml
     deps:
@@ -287,3 +287,19 @@ stages:
     - path: reports/app.json
       md5: b79628031153a4b835eb621fc74caa41
       size: 52
+  reduce_label:
+    cmd: python3 src/stages/reduce_label.py params.yaml
+    deps:
+    - path: data/interim/angle_19f_handshape.csv
+      md5: b31355c8a4094d86f58e5a4a1323d954
+      size: 19074873
+    - path: data/raw/fsw_handshape.json
+      md5: 73aa53511b9fd4a0bcc44af2ac837a3f
+      size: 1714
+    - path: src/stages/reduce_label.py
+      md5: caba32dcca9162e450614bceaf749e17
+      size: 2984
+    outs:
+    - path: data/interim/reduce_label.csv
+      md5: 4cdbfdc2963b4ef67b4c2165418d476b
+      size: 19074873

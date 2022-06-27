@@ -32,11 +32,14 @@ def data_pre_validation(np_fsw, dict_reduce_label):
 def data_post_validation(np_fsw, dict_reduce_label):
     print("-----------------data_post_validation()------------------------")
     set_fsw = set(np_fsw)
-    print("set_fsw", set_fsw)
+    #print("set_fsw", set_fsw)
     set_key = set(dict_reduce_label.keys())
-    print("set_key", set_key)
+    #print("set_key", set_key)
     len_fsw = len(set_fsw)
     len_key = len(set_key)
+    s = set_fsw ^ set_key
+    print(s, "are/is missing in the dataset(csv)")
+    print("len(s)", len(s))
     print("len_fsw", len_fsw, "==", len_key, "len_key")
     assert len_fsw==len_key
 

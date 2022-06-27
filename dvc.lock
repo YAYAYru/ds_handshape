@@ -283,8 +283,8 @@ stages:
     cmd: python3 big/src/stages/reduce_label.py params.yaml
     deps:
     - path: big/src/stages/reduce_label.py
-      md5: edb858cef529d777032c569f1d28b0e5
-      size: 2877
+      md5: caba32dcca9162e450614bceaf749e17
+      size: 2984
     - path: data/interim/angle_19f_handshape.csv
       md5: 0e5b6712888cb8888e25b8f02213d1fa
       size: 230117
