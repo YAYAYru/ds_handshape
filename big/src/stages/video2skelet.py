@@ -48,7 +48,11 @@ def videofile2skeletjson_folder(path_params_yaml: str):
     # path_reports_video2skelet = params_yaml_own["metrics"]["path_reports_video2skelet"]
     bigdata = params_yaml_own["bigdata"]
 
-    list_path = glob.glob(path_from_folder + "/*/*.mp4")
+    list_path_webm = glob.glob(path_from_folder + "/*/*.webm")
+    list_path_MP4 = glob.glob(path_from_folder + "/*/*.MP4")
+    list_path_mp4 = glob.glob(path_from_folder + "/*/*.mp4")
+    list_path = list_path_webm + list_path_MP4 + list_path_mp4
+
     if bigdata:
         n = len(list_path)
     else:
