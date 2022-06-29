@@ -4,8 +4,8 @@ stages:
     cmd: python3 big/src/stages/json2csv.py params.yaml
     deps:
     - path: big/src/stages/json2csv.py
-      md5: 6b76a07b12847ef95bd1e7e4fcd24398
-      size: 3334
+      md5: b67bf54ed41456835af5f3ced30662e1
+      size: 3221
     - path: data/interim/sl_hand_json
       md5: 1eff78fa2d600fb5911794963b7033e9.dir
       size: 1901410
@@ -22,15 +22,15 @@ stages:
     cmd: python3 big/src/stages/xyz2angle.py params.yaml
     deps:
     - path: big/src/stages/xyz2angle.py
-      md5: 644811ec8cd2d188433e81ffc088dcf0
-      size: 1152
+      md5: 16942854f58554091bf1d255661e4184
+      size: 1163
     - path: data/interim/xyz_63f.csv
-      md5: ead50241df7c47579309b096b6ac5d71
-      size: 1685854
+      md5: 2668ea335a3e330f2126a0e8b8fbbd36
+      size: 1833849
     outs:
     - path: data/interim/angle_19f.csv
-      md5: 4a6abd697df77fd1ed9080c62b5e25e8
-      size: 451786
+      md5: 219cd166402057a7c3977521cc480351
+      size: 599781
   select_label:
     cmd: python3 big/src/stages/select_label.py params.yaml
     deps:
