@@ -22,8 +22,8 @@ stages:
     cmd: python3 big/src/stages/xyz2angle.py params.yaml
     deps:
     - path: big/src/stages/xyz2angle.py
-      md5: 16942854f58554091bf1d255661e4184
-      size: 1163
+      md5: 5f6315adcd759b5dbea0fc8f408d0347
+      size: 1093
     - path: data/interim/xyz_63f.csv
       md5: 2668ea335a3e330f2126a0e8b8fbbd36
       size: 1833849
@@ -38,8 +38,8 @@ stages:
       md5: 74a9bb8f9c698804e0e7ce5a85d618e0
       size: 1061
     - path: data/interim/angle_19f.csv
-      md5: 4a6abd697df77fd1ed9080c62b5e25e8
-      size: 451786
+      md5: 219cd166402057a7c3977521cc480351
+      size: 599781
     params:
       params.yaml:
         select_label.list_fsw_orientation:
@@ -47,8 +47,8 @@ stages:
         - '01'
     outs:
     - path: data/interim/angle_19f_handshape.csv
-      md5: 0e5b6712888cb8888e25b8f02213d1fa
-      size: 230117
+      md5: 696f6d024b041984694c7707787825b4
+      size: 306352
   split_trainval_test:
     cmd: python3 big/src/stages/split_trainval_test.py params.yaml
     deps:
