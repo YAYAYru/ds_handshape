@@ -286,12 +286,12 @@ stages:
       md5: caba32dcca9162e450614bceaf749e17
       size: 2984
     - path: data/interim/angle_19f_handshape.csv
-      md5: 0e5b6712888cb8888e25b8f02213d1fa
-      size: 230117
+      md5: 696f6d024b041984694c7707787825b4
+      size: 306352
     - path: data/raw/fsw_handshape.json
       md5: fc38ceb365ab6afea4697799bb89e3eb
       size: 76
     outs:
     - path: data/interim/reduce_label.csv
-      md5: 8c578c10abb6e630fce6b8f204c72199
-      size: 230117
+      md5: 4d66f810187b1f468b84fa8b578fb7d4
+      size: 306352
