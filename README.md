@@ -22,6 +22,7 @@ grep -i 's14c' folder/*.csv
 ```bash
 python3 big/src/features/stat_fsw_handshape.py
 ```
+- Удобно ручное тестирование скелетной модели руки в браузере и пример кода [codepen.io](https://codepen.io/mediapipe/pen/RwGWYJw)
 
 
 ## Project Organization(Примерно)
