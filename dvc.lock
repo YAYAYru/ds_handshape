@@ -4,8 +4,8 @@ stages:
     cmd: python3 big/src/stages/json2csv.py params.yaml
     deps:
     - path: big/src/stages/json2csv.py
-      md5: 904fa8653d418d81b76606d20f3fbff7
-      size: 2921
+      md5: 6b76a07b12847ef95bd1e7e4fcd24398
+      size: 3334
     - path: data/interim/sl_hand_json
       md5: 1eff78fa2d600fb5911794963b7033e9.dir
       size: 1901410
@@ -16,8 +16,8 @@ stages:
       nfiles: 2
     outs:
     - path: data/interim/xyz_63f.csv
-      md5: ead50241df7c47579309b096b6ac5d71
-      size: 1685854
+      md5: 2668ea335a3e330f2126a0e8b8fbbd36
+      size: 1833849
   xyz2angle:
     cmd: python3 big/src/stages/xyz2angle.py params.yaml
     deps:

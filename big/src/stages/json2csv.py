@@ -23,20 +23,28 @@ def json2csv_fsw_signer(path_json_xyz_folders, np_row):
     return df
 
 def json2csv_fsw(path_json_xyz_folders, np_row):
-
-
     with open(path_json_xyz_folders + "/" + np_row[0] + ".json", "r") as f:
         data = json.load(f)
     df = pd.DataFrame(data=data["skelet_frames"])
     assert (np_row[1]!="0" or np_row[2]!=0) and \
            (np_row[1]!=0 or np_row[2]!="0") and\
            (np_row[1]!="0" or np_row[2]!="0") # нет метки, то исправить метки s*****
-    if np_row[1]=="0" or np_row[1]=="0":
+    if np_row[1]=="0" or np_row[1]==0:
         df["fsw"] = np_row[2]
     else:
         df["fsw"] = np_row[1]
     return df
 
+def json2csv_fsw_folder_file(path_json_xyz_folders, np_row):
+    print("path_json_xyz_folders", path_json_xyz_folders)
+    print("np_row", np_row)
+    df = json2csv_fsw(path_json_xyz_folders, np_row)
+    df["videoframe"] = range(0, len(df))
+    df["filename"] = os.path.split(np_row[0])[-1]
+    df["foldername"] = os.path.split(np_row[0])[0]
+
+
+    return df    
 
 @click.command()
 @click.argument("path_params_yaml", type=click.Path(exists=True))
@@ -62,16 +70,16 @@ def json2csv(path_params_yaml: str):
         df = df.drop(columns=['foldername'])
     np_df = df.to_numpy()
 
-    path = path_json_xyz_folders + "/" + np_df[0,0] + ".json"
+
+    path = path_json_xyz_folders + "/" + np_df[0,0] + ".json"    
     if os.path.exists(path):
-        df = json2csv_fsw(path_json_xyz_folders, np_df[0])
+        df = json2csv_fsw_folder_file(path_json_xyz_folders, np_df[0])
     else:
         print("The file not found", path)
-
     for n in np_df[1:]:
         path = path_json_xyz_folders + "/" + n[0] + ".json"
         if os.path.exists(path):
-            df_new = json2csv_fsw(path_json_xyz_folders, n)
+            df_new = json2csv_fsw_folder_file(path_json_xyz_folders, n)
             df = pd.concat([df, df_new], ignore_index=True)
         else:
             print("The file not found", path)       
@@ -81,6 +89,7 @@ def json2csv(path_params_yaml: str):
 
     df.to_csv(params_yaml_own["outs"]["path_csv"], index=False)
     print("Save path:", params_yaml_own["outs"]["path_csv"])
+    print("df.to_csv", df)
 
 
 if __name__ == "__main__":
