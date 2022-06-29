@@ -36,8 +36,6 @@ def json2csv_fsw(path_json_xyz_folders, np_row):
     return df
 
 def json2csv_fsw_folder_file(path_json_xyz_folders, np_row):
-    print("path_json_xyz_folders", path_json_xyz_folders)
-    print("np_row", np_row)
     df = json2csv_fsw(path_json_xyz_folders, np_row)
     df["videoframe"] = range(0, len(df))
     df["filename"] = os.path.split(np_row[0])[-1]
@@ -89,7 +87,6 @@ def json2csv(path_params_yaml: str):
 
     df.to_csv(params_yaml_own["outs"]["path_csv"], index=False)
     print("Save path:", params_yaml_own["outs"]["path_csv"])
-    print("df.to_csv", df)
 
 
 if __name__ == "__main__":
