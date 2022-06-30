@@ -47,15 +47,12 @@ def app(path_params_yaml: str):
     print("----------------app()------------------------")
     with open(path_params_yaml) as f:
         params_yaml = yaml.safe_load(f)  
-    params_to_categorical = params_yaml["to_categorical"]
-    params_train = params_yaml["train"]    
     params_own = params_yaml["app"]
-    params_yaml_video2skelet = params_yaml["video2skelet"]
-    path_from_folder = params_yaml_video2skelet["deps"]["path_video_folders"]
+    path_from_folder = params_own["deps"]["path_video_folders"]
     list_path = glob.glob(path_from_folder + "/*/*.mp4")
     print("len(list_path)", len(list_path))
-    path_model = params_train["outs"]["path_model"]
-    path_json_for_model = params_to_categorical["outs"]["path_skelet_hand_f63_json"]
+    path_model = params_own["deps"]["path_model"]
+    path_json_for_model = params_own["deps"]["path_skelet_hand_f63_json"]
     path_reports_app = params_own["metrics"]["path_reports_app"]
     
     wf = WorkFile()

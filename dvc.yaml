@@ -71,7 +71,7 @@ stages:
     cmd: python3 big/src/stages/train_val_split.py params.yaml
     deps:
     - big/src/stages/train_val_split.py
-    - ${split_trainval_test.outs.path_train_val_csv}
+    - ${train_val_split.deps.path_train_val_csv}
     params:
     - train_val_split.val_size
     - train_val_split.random_state
@@ -83,9 +83,9 @@ stages:
     cmd: python3 big/src/stages/select_features.py params.yaml
     deps:
     - big/src/stages/select_features.py
-    - ${train_val_split.outs.path_train_csv}
-    - ${train_val_split.outs.path_val_csv}
-    - ${split_trainval_test.outs.path_test_csv}
+    - ${select_features.deps.path_train_csv}
+    - ${select_features.deps.path_val_csv}
+    - ${select_features.deps.path_test_csv}
     outs:
     - ${select_features.outs.path_train_x}
     - ${select_features.outs.path_val_x}
@@ -98,9 +98,9 @@ stages:
     cmd: python3 big/src/stages/to_categorical.py params.yaml
     deps:
     - big/src/stages/to_categorical.py
-    - ${select_features.outs.path_train_y}
-    - ${select_features.outs.path_val_y}
-    - ${select_features.outs.path_test_y}
+    - ${to_categorical.deps.path_train_y}
+    - ${to_categorical.deps.path_val_y}
+    - ${to_categorical.deps.path_test_y}
     outs:
     - ${to_categorical.outs.path_skelet_hand_f63_json}
     - ${to_categorical.outs.path_train_y_encoder}
@@ -111,10 +111,10 @@ stages:
     cmd: python3 big/src/stages/train.py params.yaml
     deps:
     - big/src/stages/train.py
-    - ${select_features.outs.path_train_x}
-    - ${select_features.outs.path_val_x}
-    - ${to_categorical.outs.path_train_y_encoder}
-    - ${to_categorical.outs.path_val_y_encoder}
+    - ${train.deps.path_train_x}
+    - ${train.deps.path_val_x}
+    - ${train.deps.path_train_y_encoder}
+    - ${train.deps.path_val_y_encoder}
     params:
     - train.epochs
     outs:
@@ -130,10 +130,10 @@ stages:
     cmd: python3 big/src/stages/predict.py params.yaml
     deps:
       - big/src/stages/predict.py
-      - ${train.outs.path_model}
-      - ${select_features.outs.path_train_x}
-      - ${select_features.outs.path_val_x}
-      - ${select_features.outs.path_test_x}
+      - ${predict.deps.path_model}
+      - ${predict.deps.path_train_x}
+      - ${predict.deps.path_val_x}
+      - ${predict.deps.path_test_x}
     outs:
       - ${predict.outs.path_train_y_pred}
       - ${predict.outs.path_val_y_pred}
@@ -149,15 +149,15 @@ stages:
     cmd: python3 big/src/stages/evaluate.py params.yaml
     deps:
       - big/src/stages/evaluate.py
-      - ${select_features.outs.path_train_y}
-      - ${predict.outs.path_train_y_pred}
-      - ${predict.outs.path_train_y_pred_proba}
-      - ${select_features.outs.path_val_y}
-      - ${predict.outs.path_val_y_pred}
-      - ${predict.outs.path_val_y_pred_proba}
-      - ${select_features.outs.path_test_y}
-      - ${predict.outs.path_test_y_pred}
-      - ${predict.outs.path_test_y_pred_proba}
+      - ${evaluate.deps.path_train_y}
+      - ${evaluate.deps.path_train_y_pred}
+      - ${evaluate.deps.path_train_y_pred_proba}
+      - ${evaluate.deps.path_val_y}
+      - ${evaluate.deps.path_val_y_pred}
+      - ${evaluate.deps.path_val_y_pred_proba}
+      - ${evaluate.deps.path_test_y}
+      - ${evaluate.deps.path_test_y_pred}
+      - ${evaluate.deps.path_test_y_pred_proba}
     metrics:
     - ${evaluate.metrics.path_report_train}
         #cache: false
@@ -170,9 +170,9 @@ stages:
     cmd: python3 big/src/stages/app.py params.yaml
     deps:
       - big/src/stages/app.py
-      - ${train.outs.path_model}
-      - ${to_categorical.outs.path_skelet_hand_f63_json}
-      - ${video2skelet.deps.path_video_folders}
+      - ${app.deps.path_model}
+      - ${app.deps.path_skelet_hand_f63_json}
+      - ${app.deps.path_video_folders}
     metrics:
       - ${app.metrics.path_reports_app}:
          cache: true   

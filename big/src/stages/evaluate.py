@@ -92,20 +92,18 @@ def evaluate(path_params_yaml: str):
     with open(path_params_yaml) as f:
         params_yaml = yaml.safe_load(f)  
     params_own = params_yaml["evaluate"]
-    params_predict = params_yaml["predict"]
-    params_select_features = params_yaml["select_features"]
 
-    path_train_y = params_select_features["outs"]["path_train_y"]
-    path_val_y = params_select_features["outs"]["path_val_y"]    
-    path_test_y = params_select_features["outs"]["path_test_y"]
+    path_train_y = params_own["deps"]["path_train_y"]
+    path_val_y = params_own["deps"]["path_val_y"]    
+    path_test_y = params_own["deps"]["path_test_y"]
 
-    path_train_y_pred = params_predict["outs"]["path_train_y_pred"]
-    path_val_y_pred = params_predict["outs"]["path_val_y_pred"]
-    path_test_y_pred = params_predict["outs"]["path_test_y_pred"]
+    path_train_y_pred = params_own["deps"]["path_train_y_pred"]
+    path_val_y_pred = params_own["deps"]["path_val_y_pred"]
+    path_test_y_pred = params_own["deps"]["path_test_y_pred"]
 
-    path_train_y_pred_proba = params_predict["outs"]["path_train_y_pred_proba"]
-    path_val_y_pred_proba = params_predict["outs"]["path_val_y_pred_proba"]
-    path_test_y_pred_proba = params_predict["outs"]["path_test_y_pred_proba"]    
+    path_train_y_pred_proba = params_own["deps"]["path_train_y_pred_proba"]
+    path_val_y_pred_proba = params_own["deps"]["path_val_y_pred_proba"]
+    path_test_y_pred_proba = params_own["deps"]["path_test_y_pred_proba"]    
 
     path_report_train = params_own["metrics"]["path_report_train"]
     path_report_val = params_own["metrics"]["path_report_val"]

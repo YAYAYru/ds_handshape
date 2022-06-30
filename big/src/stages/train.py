@@ -35,15 +35,13 @@ def train(path_params_yaml: str):
 
     with open(path_params_yaml) as f:
         params_yaml = yaml.safe_load(f)  
-    select_features = params_yaml["select_features"]
-    to_categorical = params_yaml["to_categorical"]
     params_yaml_own = params_yaml["train"]
 
     epochs = params_yaml_own["epochs"]
-    path_train_x = select_features["outs"]["path_train_x"]
-    path_val_x = select_features["outs"]["path_val_x"]
-    path_train_y_encoder = to_categorical["outs"]["path_train_y_encoder"]
-    path_val_y_encoder = to_categorical["outs"]["path_val_y_encoder"]
+    path_train_x = params_yaml_own["deps"]["path_train_x"]
+    path_val_x = params_yaml_own["deps"]["path_val_x"]
+    path_train_y_encoder = params_yaml_own["deps"]["path_train_y_encoder"]
+    path_val_y_encoder = params_yaml_own["deps"]["path_val_y_encoder"]
     path_model = params_yaml_own["outs"]["path_model"]
     path_history = params_yaml_own["plots"]["path_history"]
 

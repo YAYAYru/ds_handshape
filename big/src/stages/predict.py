@@ -14,16 +14,13 @@ def predict(path_params_yaml: str):
 
     with open(path_params_yaml) as f:
         params_yaml = yaml.safe_load(f)
-    params_select_features = params_yaml["select_features"]  
-    params_to_categorical = params_yaml["to_categorical"]
-    params_train = params_yaml["train"]    
     params_own = params_yaml["predict"]
 
-    path_model = params_train["outs"]["path_model"]
-    path_json_for_model = params_to_categorical["outs"]["path_skelet_hand_f63_json"]
-    path_train_x = params_select_features["outs"]["path_train_x"]
-    path_val_x = params_select_features["outs"]["path_val_x"]
-    path_test_x = params_select_features["outs"]["path_test_x"]
+    path_model = params_own["deps"]["path_model"]
+    path_json_for_model = params_own["deps"]["path_skelet_hand_f63_json"]
+    path_train_x = params_own["deps"]["path_train_x"]
+    path_val_x = params_own["deps"]["path_val_x"]
+    path_test_x = params_own["deps"]["path_test_x"]
 
     path_train_y_pred = params_own["outs"]["path_train_y_pred"]
     path_val_y_pred = params_own["outs"]["path_val_y_pred"]

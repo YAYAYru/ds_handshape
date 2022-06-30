@@ -14,12 +14,10 @@ def select_features(path_params_yaml: str):
     with open(path_params_yaml) as f:
         params_yaml = yaml.safe_load(f)  
     params_yaml_own = params_yaml["select_features"]
-    params_yaml_train_val_split = params_yaml["train_val_split"]
-    params_yaml_split_trainval_test = params_yaml["split_trainval_test"]
 
-    df_train = pd.read_csv(params_yaml_train_val_split["outs"]["path_train_csv"])
-    df_val = pd.read_csv(params_yaml_train_val_split["outs"]["path_val_csv"])
-    df_test = pd.read_csv(params_yaml_split_trainval_test["outs"]["path_test_csv"])
+    df_train = pd.read_csv(params_yaml_own["deps"]["path_train_csv"])
+    df_val = pd.read_csv(params_yaml_own["deps"]["path_val_csv"])
+    df_test = pd.read_csv(params_yaml_own["deps"]["path_test_csv"])
     
     select_droping_features = ["fsw", "videoframe", "filename", "foldername"]
 

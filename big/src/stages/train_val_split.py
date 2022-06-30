@@ -18,9 +18,8 @@ def train_val_split(path_params_yaml: str):
     with open(path_params_yaml) as conf_file:
         params_yaml = yaml.safe_load(conf_file)  
     params_yaml_own = params_yaml["train_val_split"]
-    params_yaml_split_trainval_test = params_yaml["split_trainval_test"]
 
-    path_train_val_csv = params_yaml_split_trainval_test["outs"]["path_train_val_csv"]
+    path_train_val_csv = params_yaml_own["deps"]["path_train_val_csv"]
     
     df = pd.read_csv(path_train_val_csv)
     df_train, df_val = train_test_split(

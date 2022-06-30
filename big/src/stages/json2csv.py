@@ -52,9 +52,8 @@ def json2csv(path_params_yaml: str):
     with open(path_params_yaml) as f:
         params_yaml = yaml.safe_load(f)  
     params_yaml_own = params_yaml["json2csv"]
-    params_yaml_video2skelet = params_yaml["video2skelet"]
 
-    path_json_xyz_folders = params_yaml_video2skelet["outs"]["path_json_xyz_folders"]
+    path_json_xyz_folders = params_yaml_own["deps"]["path_json_xyz_folders"]
     path_folder_csv = params_yaml_own["deps"]["path_folder_csv"]
 
     list_path_json = glob.glob(path_json_xyz_folders +"/*/*.json")
