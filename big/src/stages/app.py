@@ -37,6 +37,7 @@ def predict_video(np_video, path_model, path_json_for_model):
     model = Predicter()
     model.load_model(path_model)
     model.load_class_list(path_json_for_model)
+    print("np_angles.shape", np_angles.shape)
     return model.predict_classes(np_angles)
 
 

@@ -46,6 +46,15 @@ stages:
     outs:
     - ${reduce_label.outs.path_reduce_label_csv}
 
+  split_by_folder:
+    cmd: python3 big/src/stages/split_by_folder.py params.yaml
+    deps:
+    - big/src/stages/split_by_folder.py
+    - ${split_by_folder.deps.path_reduce_label_csv}
+    outs:
+    - ${split_by_folder.outs.path_train_val_test_csv}
+    - ${split_by_folder.outs.path_test2_csv}
+
   split_trainval_test:
     cmd: python3 big/src/stages/split_trainval_test.py params.yaml
     deps:
