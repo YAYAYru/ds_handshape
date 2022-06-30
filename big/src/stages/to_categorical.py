@@ -27,11 +27,10 @@ def to_categorical(path_params_yaml: str):
     with open(path_params_yaml) as f:
         dvc_yaml = yaml.safe_load(f)  
     dvc_yaml_own = dvc_yaml["to_categorical"]
-    dvc_yaml_select_features = dvc_yaml["select_features"]
 
-    path_train_y = dvc_yaml_select_features["outs"]["path_train_y"]
-    path_val_y = dvc_yaml_select_features["outs"]["path_val_y"]
-    path_test_y = dvc_yaml_select_features["outs"]["path_test_y"]
+    path_train_y = dvc_yaml_own["deps"]["path_train_y"]
+    path_val_y = dvc_yaml_own["deps"]["path_val_y"]
+    path_test_y = dvc_yaml_own["deps"]["path_test_y"]
 
     np_load_old = np.load
     np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
