@@ -32,61 +32,112 @@ reduce_label:
   outs:
     path_reduce_label_csv: data/interim/reduce_label.csv
 
+split_by_folder:
+  list_foldername_for_test2: [20220627_AlexeyP, 20220627_JuliaB]
+  deps: 
+    path_reduce_label_csv: data/interim/reduce_label.csv
+  outs:
+    path_train_val_test_csv: data/interim/train_val_test.csv
+    path_test2_csv: data/interim/test2.csv
+
 split_trainval_test:
-  test_size: 0.2
+  test_size: 0.1
   random_state: 42
   deps:
-    path_angle_19f_handshape_csv: data/interim/reduce_label.csv
+    path_angle_19f_handshape_csv: data/interim/train_val_test.csv
   outs:
     path_train_val_csv: data/processed/train_val.csv
     path_test_csv: data/processed/test.csv
 
 train_val_split:
-  val_size: 0.2
+  val_size: 0.1
   random_state: 42
+  deps:
+    path_train_val_csv: data/processed/train_val.csv
   outs:
     path_train_csv: data/processed/train.csv
     path_val_csv: data/processed/val.csv
 
 select_features:
+  deps:
+    path_train_csv: data/processed/train.csv
+    path_val_csv: data/processed/val.csv
+    path_test_csv: data/processed/test.csv
+    path_test2_csv: data/interim/test2.csv
   outs:
     path_train_x: data/processed/train_x.npy
     path_val_x: data/processed/val_x.npy
-    path_test_x: data/processed/test_x.npy  
+    path_test_x: data/processed/test_x.npy 
+    path_test2_x: data/processed/test2_x.npy 
     path_train_y: data/processed/train_y.npy
     path_val_y: data/processed/val_y.npy
     path_test_y: data/processed/test_y.npy
+    path_test2_y: data/processed/test2_y.npy
 
 to_categorical:
+  deps:
+    path_train_y: data/processed/train_y.npy
+    path_val_y: data/processed/val_y.npy
+    path_test_y: data/processed/test_y.npy    
+    path_test2_y: data/processed/test2_y.npy
   outs:
     path_skelet_hand_f63_json: models/skelet_hand_f19.json
     path_train_y_encoder: data/processed/train_y_encoder.npy
     path_val_y_encoder: data/processed/val_y_encoder.npy
     path_test_y_encoder: data/processed/test_y_encoder.npy
+    path_test2_y_encoder: data/processed/test2_y_encoder.npy
 
 train:
   epochs: 1200
+  deps:
+    path_train_x: data/processed/train_x.npy
+    path_val_x: data/processed/val_x.npy  
+    path_train_y_encoder: data/processed/train_y_encoder.npy
+    path_val_y_encoder: data/processed/val_y_encoder.npy    
   outs:
     path_model: models/skelet_hand_f19.h5
   plots:
     path_history: reports/train_history.csv
 
 predict:
+  deps:
+    path_model: models/skelet_hand_f19.h5
+    path_skelet_hand_f63_json: models/skelet_hand_f19.json
+    path_train_x: data/processed/train_x.npy
+    path_val_x: data/processed/val_x.npy
+    path_test_x: data/processed/test_x.npy  
+    path_test2_x: data/processed/test2_x.npy  
   outs:
     path_train_y_pred: data/processed/train_y_pred.npy
     path_val_y_pred: data/processed/val_y_pred.npy
     path_test_y_pred: data/processed/test_y_pred.npy
+    path_test2_y_pred: data/processed/test2_y_pred.npy
     path_train_y_pred_proba: data/processed/train_y_pred_proba.npy
     path_val_y_pred_proba: data/processed/val_y_pred_proba.npy
     path_test_y_pred_proba: data/processed/test_y_pred_proba.npy
+    path_test2_y_pred_proba: data/processed/test2_y_pred_proba.npy
   metrics:
     path_report_predict: reports/predict.json
 
 evaluate:
+  deps:
+    path_train_y_pred: data/processed/train_y_pred.npy
+    path_val_y_pred: data/processed/val_y_pred.npy
+    path_test_y_pred: data/processed/test_y_pred.npy
+    path_test2_y_pred: data/processed/test2_y_pred.npy
+    path_train_y_pred_proba: data/processed/train_y_pred_proba.npy
+    path_val_y_pred_proba: data/processed/val_y_pred_proba.npy
+    path_test_y_pred_proba: data/processed/test_y_pred_proba.npy
+    path_test2_y_pred_proba: data/processed/test2_y_pred_proba.npy
+    path_train_y: data/processed/train_y.npy
+    path_val_y: data/processed/val_y.npy
+    path_test_y: data/processed/test_y.npy  
+    path_test2_y: data/processed/test2_y.npy  
   metrics:
     path_report_train: reports/train.json
     path_report_val: reports/val.json
     path_report_test: reports/test.json
+    path_report_test2: reports/test2.json
   plots:
     path_ytrain_ypred: reports/ytrain_ypred.csv
     path_classreport_train: reports/train_classreport.csv
@@ -94,15 +145,23 @@ evaluate:
     path_classreport_val: reports/val_classreport.csv
     path_ytest_ypred: reports/ytestypred.csv
     path_classreport_test: reports/test_classreport.csv
+    path_ytest2_ypred: reports/ytest2ypred.csv
+    path_classreport_test2: reports/test2_classreport.csv
 
     path_confusion_matrix_train: reports/confusion_matrix_train
     path_confusion_matrix_val: reports/confusion_matrix_val
     path_confusion_matrix_test: reports/confusion_matrix_test
+    path_confusion_matrix_test2: reports/confusion_matrix_test2
 
     path_confusion_matrix_norm_train: reports/confusion_matrix_norm_train
     path_confusion_matrix_norm_val: reports/confusion_matrix_norm_val
     path_confusion_matrix_norm_test: reports/confusion_matrix_norm_test
+    path_confusion_matrix_norm_test2: reports/confusion_matrix_norm_test2
 
 app:
+  deps:
+    path_model: models/skelet_hand_f19.h5
+    path_skelet_hand_f63_json: models/skelet_hand_f19.json
+    path_video_folders: data/raw/sl_hand
   metrics:
     path_reports_app: reports/app.json
