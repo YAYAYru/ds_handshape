@@ -31,6 +31,7 @@ def to_categorical(path_params_yaml: str):
     path_train_y = dvc_yaml_own["deps"]["path_train_y"]
     path_val_y = dvc_yaml_own["deps"]["path_val_y"]
     path_test_y = dvc_yaml_own["deps"]["path_test_y"]
+    path_test2_y = dvc_yaml_own["deps"]["path_test2_y"]
 
     np_load_old = np.load
     np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
@@ -38,14 +39,18 @@ def to_categorical(path_params_yaml: str):
     train_y = np.load(path_train_y)
     val_y = np.load(path_val_y) 
     test_y = np.load(path_test_y)     
+    test2_y = np.load(path_test2_y)   
     np.load = np_load_old
 
     train_y_encoder, list_class_train = label_encoder("train_y", train_y)
     val_y_encoder, list_class_val = label_encoder("val_y", val_y)
     test_y_encoder, list_class_test = label_encoder("test_y", test_y)
+    test2_y_encoder, list_class_test2 = label_encoder("test2_y", test2_y)
 
+    # Train, val, test, test2 должны совпадать
     assert list_class_train.tolist()==list_class_val.tolist()
     assert list_class_train.tolist()==list_class_test.tolist()
+    assert list_class_test.tolist()==list_class_test2.tolist()
 
     json.dump(
         indent=4,
@@ -56,6 +61,7 @@ def to_categorical(path_params_yaml: str):
     np.save(dvc_yaml_own["outs"]["path_train_y_encoder"], train_y_encoder)
     np.save(dvc_yaml_own["outs"]["path_val_y_encoder"], val_y_encoder)
     np.save(dvc_yaml_own["outs"]["path_test_y_encoder"], test_y_encoder)
+    np.save(dvc_yaml_own["outs"]["path_test2_y_encoder"], test2_y_encoder)
 
 
 if __name__ == "__main__":

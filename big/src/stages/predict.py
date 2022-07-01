@@ -21,13 +21,16 @@ def predict(path_params_yaml: str):
     path_train_x = params_own["deps"]["path_train_x"]
     path_val_x = params_own["deps"]["path_val_x"]
     path_test_x = params_own["deps"]["path_test_x"]
+    path_test2_x = params_own["deps"]["path_test2_x"]
 
     path_train_y_pred = params_own["outs"]["path_train_y_pred"]
     path_val_y_pred = params_own["outs"]["path_val_y_pred"]
     path_test_y_pred = params_own["outs"]["path_test_y_pred"]
+    path_test2_y_pred = params_own["outs"]["path_test2_y_pred"]
     path_train_y_pred_proba = params_own["outs"]["path_train_y_pred_proba"]
     path_val_y_pred_proba = params_own["outs"]["path_val_y_pred_proba"]
-    path_test_y_pred_proba = params_own["outs"]["path_test_y_pred_proba"]    
+    path_test_y_pred_proba = params_own["outs"]["path_test_y_pred_proba"]
+    path_test2_y_pred_proba = params_own["outs"]["path_test2_y_pred_proba"]    
     
     path_reports_predict = params_own["metrics"]["path_report_predict"]
 
@@ -36,6 +39,7 @@ def predict(path_params_yaml: str):
     train_x = np.load(path_train_x)
     val_x = np.load(path_val_x)
     test_x = np.load(path_test_x) 
+    test2_x = np.load(path_test2_x) 
     #np.load = np_load_old
     
     model = Predicter()
@@ -66,6 +70,13 @@ def predict(path_params_yaml: str):
     np.save(path_test_y_pred, test_y_pred)
     print("test_y_pred:", test_y_pred.shape, ", Saved:", path_test_y_pred)
 
+    start= timeit.default_timer()
+    test2_y_pred = model.predict_classes(test2_x)
+    sec = round((timeit.default_timer() - start)/test2_x.shape[0], r)
+    dict_runtime["mean_test2_runtime"] = float('{:f}'.format(sec))
+    np.save(path_test2_y_pred, test2_y_pred)
+    print("test2_y_pred:", test2_y_pred.shape, ", Saved:", path_test2_y_pred)
+
     print("dict_runtime", dict_runtime)  
 
     with open(path_reports_predict, "w") as f:
@@ -74,10 +85,12 @@ def predict(path_params_yaml: str):
     train_y_pred_proba = model.predict_proba(train_x)
     val_y_pred_proba = model.predict_proba(val_x)
     test_y_pred_proba = model.predict_proba(test_x)
+    test2_y_pred_proba = model.predict_proba(test2_x)
 
     np.save(path_train_y_pred_proba, train_y_pred_proba)
     np.save(path_val_y_pred_proba, val_y_pred_proba)
     np.save(path_test_y_pred_proba, test_y_pred_proba)
+    np.save(path_test2_y_pred_proba, test2_y_pred_proba)
     
     """ Для тестирования accuracy и loss
     train_y_encoder = np.load("data/processed/train_y_encoder.npy")
