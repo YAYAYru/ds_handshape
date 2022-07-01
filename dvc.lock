@@ -286,6 +286,9 @@ stages:
     - path: reports/test.json
       md5: cf869b06fd1bad897ea77b801338efa3
       size: 27
+    - path: reports/test2.json
+      md5: 455cb2e9a74af69ae2b4ad8a730f84c0
+      size: 31
     - path: reports/train.json
       md5: 0b8c36e48a04fce8e2b003a642e1c3bc
       size: 31
