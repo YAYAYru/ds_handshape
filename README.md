@@ -24,7 +24,11 @@ python3 big/src/features/stat_fsw_handshape.py
 ```
 - Удобно ручное тестирование скелетной модели руки в браузере и пример кода [codepen.io](https://codepen.io/mediapipe/pen/RwGWYJw)
 
-
+- Количество каждого класса в датасете:
+```bash
+cd big
+python3 src/visual/class_count.py params.yaml
+```
 ## Project Organization(Примерно)
 ------------
 
