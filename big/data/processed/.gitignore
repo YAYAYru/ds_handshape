@@ -17,3 +17,8 @@
 /train_y_pred_proba.npy
 /val_y_pred_proba.npy
 /test_y_pred_proba.npy
+/test2_x.npy
+/test2_y.npy
+/test2_y_encoder.npy
+/test2_y_pred.npy
+/test2_y_pred_proba.npy

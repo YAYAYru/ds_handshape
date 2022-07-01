@@ -100,6 +100,9 @@ stages:
   select_features:
     cmd: python3 src/stages/select_features.py params.yaml
     deps:
+    - path: data/interim/test2.csv
+      md5: 513bcef6a9da6cc91534b35130f972b5
+      size: 1664613
     - path: data/processed/test.csv
       md5: a3b8198161665060ac7e1dfdf2fba39d
       size: 2451306
@@ -110,9 +113,15 @@ stages:
       md5: 4097c9b184da2019ca3394e24cfe4c24
       size: 2205906
     - path: src/stages/select_features.py
-      md5: aeb474b4fc8d2877bb1acdade83124ca
-      size: 2161
+      md5: dc6eab5638687c923fa0534c32934948
+      size: 2438
     outs:
+    - path: data/processed/test2_x.npy
+      md5: 0ad4cce2a475e7cf300649df96b2614c
+      size: 1418288
+    - path: data/processed/test2_y.npy
+      md5: 686ebec95d4f9c235509b9792f7cf49f
+      size: 19357
     - path: data/processed/test_x.npy
       md5: 2bd1ef6a1046a81f039ce06d40df2172
       size: 2133600
@@ -134,6 +143,9 @@ stages:
   to_categorical:
     cmd: python3 src/stages/to_categorical.py params.yaml
     deps:
+    - path: data/processed/test2_y.npy
+      md5: 686ebec95d4f9c235509b9792f7cf49f
+      size: 19357
     - path: data/processed/test_y.npy
       md5: 90c1962204881a7439b814ef589fe00a
       size: 28779
@@ -144,9 +156,12 @@ stages:
       md5: 27b21c14167265a7d3942e6948d26b71
       size: 25969
     - path: src/stages/to_categorical.py
-      md5: abe6a5e88b92572aec81cd32c2bd7e5e
-      size: 2028
+      md5: 56e2e61ee1e82b3fe07f51c7e6da59e4
+      size: 2397
     outs:
+    - path: data/processed/test2_y_encoder.npy
+      md5: e4753e128f96ab4823edc6b1ec3d4164
+      size: 74768
     - path: data/processed/test_y_encoder.npy
       md5: 80b34d364ed1a8350b409b4f13efdf25
       size: 112416
@@ -190,6 +205,9 @@ stages:
   predict:
     cmd: python3 src/stages/predict.py params.yaml
     deps:
+    - path: data/processed/test2_x.npy
+      md5: 0ad4cce2a475e7cf300649df96b2614c
+      size: 1418288
     - path: data/processed/test_x.npy
       md5: 2bd1ef6a1046a81f039ce06d40df2172
       size: 2133600
@@ -203,9 +221,15 @@ stages:
       md5: 13a9b8014859346a65a6ab4268a1a9c5
       size: 69800
     - path: src/stages/predict.py
-      md5: 2a495d577f3c153d20830c473894a5fa
-      size: 3669
+      md5: d9b5fdae0131b7d8eaa753a5b3b239b4
+      size: 4356
     outs:
+    - path: data/processed/test2_y_pred.npy
+      md5: af90096bcf09612d5d1d7502270bc13e
+      size: 149408
+    - path: data/processed/test2_y_pred_proba.npy
+      md5: fc938e888677de3505100ad4d52f95ea
+      size: 1642208
     - path: data/processed/test_y_pred.npy
       md5: 1230a98034a7720c461c6c9c1e015e3c
       size: 224704
@@ -227,6 +251,15 @@ stages:
   evaluate:
     cmd: python3 src/stages/evaluate.py params.yaml
     deps:
+    - path: data/processed/test2_y.npy
+      md5: 686ebec95d4f9c235509b9792f7cf49f
+      size: 19357
+    - path: data/processed/test2_y_pred.npy
+      md5: af90096bcf09612d5d1d7502270bc13e
+      size: 149408
+    - path: data/processed/test2_y_pred_proba.npy
+      md5: fc938e888677de3505100ad4d52f95ea
+      size: 1642208
     - path: data/processed/test_y.npy
       md5: 90c1962204881a7439b814ef589fe00a
       size: 28779
@@ -255,11 +288,14 @@ stages:
       md5: 939d6861b94faaa7e3733b9def7ce0b6
       size: 2223536
     - path: src/stages/evaluate.py
-      md5: 81288ca4feef6991282e43049c915ebd
-      size: 7483
+      md5: 64fc67e2701ad4b10ad50217913a608b
+      size: 9018
     outs:
     - path: reports/test.json
       md5: 4ef24a7142f15910ec86144d7e6e3e3c
+      size: 31
+    - path: reports/test2.json
+      md5: bf97a076d261247dd0637b9a9324c831
       size: 31
     - path: reports/train.json
       md5: d1dbb73c7c224ff178e860571e4e2dae

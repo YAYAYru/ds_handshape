@@ -96,56 +96,69 @@ def evaluate(path_params_yaml: str):
     path_train_y = params_own["deps"]["path_train_y"]
     path_val_y = params_own["deps"]["path_val_y"]    
     path_test_y = params_own["deps"]["path_test_y"]
+    path_test2_y = params_own["deps"]["path_test2_y"]
 
     path_train_y_pred = params_own["deps"]["path_train_y_pred"]
     path_val_y_pred = params_own["deps"]["path_val_y_pred"]
     path_test_y_pred = params_own["deps"]["path_test_y_pred"]
+    path_test2_y_pred = params_own["deps"]["path_test2_y_pred"]
 
     path_train_y_pred_proba = params_own["deps"]["path_train_y_pred_proba"]
     path_val_y_pred_proba = params_own["deps"]["path_val_y_pred_proba"]
     path_test_y_pred_proba = params_own["deps"]["path_test_y_pred_proba"]    
+    path_test2_y_pred_proba = params_own["deps"]["path_test2_y_pred_proba"]    
 
     path_report_train = params_own["metrics"]["path_report_train"]
     path_report_val = params_own["metrics"]["path_report_val"]
     path_report_test = params_own["metrics"]["path_report_test"]
+    path_report_test2 = params_own["metrics"]["path_report_test2"]
 
     path_ytrain_ypred = params_own["plots"]["path_ytrain_ypred"]
     path_yval_ypred = params_own["plots"]["path_yval_ypred"]
     path_ytest_ypred = params_own["plots"]["path_ytest_ypred"]
+    path_ytest2_ypred = params_own["plots"]["path_ytest2_ypred"]
     
     path_train_classreport = params_own["plots"]["path_classreport_train"]
     path_val_classreport = params_own["plots"]["path_classreport_val"]
     path_test_classreport = params_own["plots"]["path_classreport_test"]
+    path_test2_classreport = params_own["plots"]["path_classreport_test2"]
 
     path_confusion_matrix_train = params_own["plots"]["path_confusion_matrix_train"]
     path_confusion_matrix_val = params_own["plots"]["path_confusion_matrix_val"]
     path_confusion_matrix_test = params_own["plots"]["path_confusion_matrix_test"]    
+    path_confusion_matrix_test2 = params_own["plots"]["path_confusion_matrix_test2"]  
 
     path_confusion_matrix_norm_train = params_own["plots"]["path_confusion_matrix_norm_train"]
     path_confusion_matrix_norm_val = params_own["plots"]["path_confusion_matrix_norm_val"]
     path_confusion_matrix_norm_test = params_own["plots"]["path_confusion_matrix_norm_test"]    
+    path_confusion_matrix_norm_test2 = params_own["plots"]["path_confusion_matrix_norm_test2"]   
 
     np_load_old = np.load
     np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
     train_y = np.load(path_train_y)
     val_y = np.load(path_val_y)
     test_y = np.load(path_test_y)
+    test2_y = np.load(path_test2_y)
     train_y_pred = np.load(path_train_y_pred)
     val_y_pred = np.load(path_val_y_pred)
     test_y_pred = np.load(path_test_y_pred)
+    test2_y_pred = np.load(path_test2_y_pred)
     np.load = np_load_old
 
     metrics_train_dict = classification_report(train_y, train_y_pred, output_dict=True) 
     metrics_val_dict = classification_report(val_y, val_y_pred, output_dict=True) 
     metrics_test_dict = classification_report(test_y, test_y_pred, output_dict=True)
+    metrics_test2_dict = classification_report(test2_y, test2_y_pred, output_dict=True)
 
     df_train = classification_report_df(metrics_train_dict)
     df_val = classification_report_df(metrics_val_dict)
     df_test = classification_report_df(metrics_test_dict)
+    df_test2 = classification_report_df(metrics_test2_dict)
     
     df_train.to_csv(path_train_classreport, index=False)
     df_val.to_csv(path_val_classreport, index=False)
     df_test.to_csv(path_test_classreport, index=False)
+    df_test2.to_csv(path_test2_classreport, index=False)
 
     df_train = pd.DataFrame({"train": train_y, "pred": train_y_pred})
     df_train.to_csv(path_ytrain_ypred, index=False)
@@ -153,6 +166,8 @@ def evaluate(path_params_yaml: str):
     df_val.to_csv(path_yval_ypred, index=False)
     df_test = pd.DataFrame({"test": test_y, "pred": test_y_pred})
     df_test.to_csv(path_ytest_ypred, index=False)
+    df_test2 = pd.DataFrame({"test2": test2_y, "pred": test2_y_pred})
+    df_test2.to_csv(path_ytest2_ypred, index=False)
 
     cm = ConfusionMatrix(actual_vector=train_y, predict_vector=train_y_pred) # Create CM From Data
     cm.save_html(path_confusion_matrix_train)
@@ -165,7 +180,11 @@ def evaluate(path_params_yaml: str):
     cm = ConfusionMatrix(actual_vector=test_y, predict_vector=test_y_pred) # Create CM From Data
     cm.save_html(path_confusion_matrix_test)
     cm.save_html(path_confusion_matrix_norm_test, normalize=True)
-    
+
+    cm = ConfusionMatrix(actual_vector=test2_y, predict_vector=test2_y_pred) # Create CM From Data
+    cm.save_html(path_confusion_matrix_test2)
+    cm.save_html(path_confusion_matrix_norm_test2, normalize=True)
+
     r = 4
     acc_train = round(accuracy_score(train_y, train_y_pred), r)
     train_y_pred_proba = np.load(path_train_y_pred_proba)
@@ -189,6 +208,13 @@ def evaluate(path_params_yaml: str):
     with open(path_report_test, "w") as f:
         f.write(json.dumps(dict_test))
 
+
+    acc_test2 = round(accuracy_score(test2_y, test2_y_pred),r)
+    test2_y_pred_proba = np.load(path_test2_y_pred_proba)
+    loss_test2 = round(log_loss(test2_y, test2_y_pred_proba), r)
+    dict_test2 = {"loss": loss_test2, "acc": acc_test2}
+    with open(path_report_test2, "w") as f:
+        f.write(json.dumps(dict_test2))
 
 if __name__ == "__main__":
     evaluate()
