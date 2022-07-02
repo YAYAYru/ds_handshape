@@ -61,8 +61,8 @@ stages:
     cmd: python3 src/stages/split_trainval_test.py params.yaml
     deps:
     - path: data/interim/train_val_test_balance.csv
-      md5: bf3574192537e6cc26dfc36e47edf830
-      size: 5602981
+      md5: a59e24f7cff4cd9622ae78dd62481418
+      size: 5575145
     - path: src/stages/split_trainval_test.py
       md5: 70d9e4966aefdc4f364b6f47ce9895ab
       size: 1722
@@ -72,17 +72,17 @@ stages:
         split_trainval_test.test_size: 0.1
     outs:
     - path: data/processed/test.csv
-      md5: 0cf13b045956b327c41b3142be5ff84c
-      size: 531665
+      md5: 3b3f11aa423ed04d61667ad4449df121
+      size: 525310
     - path: data/processed/train_val.csv
-      md5: f3d9331db60ea6572f9dfb51eb4dc624
-      size: 4775344
+      md5: 83a8eaa71e8108ac3b17a62b67c3a571
+      size: 4753914
   train_val_split:
     cmd: python3 src/stages/train_val_split.py params.yaml
     deps:
     - path: data/processed/train_val.csv
-      md5: f3d9331db60ea6572f9dfb51eb4dc624
-      size: 4775344
+      md5: 83a8eaa71e8108ac3b17a62b67c3a571
+      size: 4753914
     - path: src/stages/train_val_split.py
       md5: 3edb888dfdd4cf9135cc03c67860ee9a
       size: 1513
@@ -92,11 +92,11 @@ stages:
         train_val_split.val_size: 0.1
     outs:
     - path: data/processed/train.csv
-      md5: 837b6c8abe9018056215ce3312dffd24
-      size: 4297123
+      md5: 3bfca2bd8f1552b3cf378c3239993000
+      size: 4275923
     - path: data/processed/val.csv
-      md5: f238ef5f9fbb5add5440fb42f6bbf00e
-      size: 478498
+      md5: 847a7103174eaed4f9a1e078f323f3c8
+      size: 478268
   select_features:
     cmd: python3 src/stages/select_features.py params.yaml
     deps:
@@ -104,14 +104,14 @@ stages:
       md5: 513bcef6a9da6cc91534b35130f972b5
       size: 1664613
     - path: data/processed/test.csv
-      md5: 0cf13b045956b327c41b3142be5ff84c
-      size: 531665
+      md5: 3b3f11aa423ed04d61667ad4449df121
+      size: 525310
     - path: data/processed/train.csv
-      md5: 837b6c8abe9018056215ce3312dffd24
-      size: 4297123
+      md5: 3bfca2bd8f1552b3cf378c3239993000
+      size: 4275923
     - path: data/processed/val.csv
-      md5: f238ef5f9fbb5add5440fb42f6bbf00e
-      size: 478498
+      md5: 847a7103174eaed4f9a1e078f323f3c8
+      size: 478268
     - path: src/stages/select_features.py
       md5: b869d067c8e9682d55f348e31a474e15
       size: 2556
@@ -123,23 +123,23 @@ stages:
       md5: 686ebec95d4f9c235509b9792f7cf49f
       size: 19357
     - path: data/processed/test_x.npy
-      md5: 28f8017be5208d7c901c3715ac4c89b2
-      size: 400800
+      md5: 582ff2dc322b1fdb51af97a7efb88be0
+      size: 398064
     - path: data/processed/test_y.npy
-      md5: 9e08db4407c1c85fafde56e7ca33543c
-      size: 5955
+      md5: 4dbf0c9d4c740c4f785e88ada59bf53f
+      size: 5919
     - path: data/processed/train_x.npy
-      md5: c625069aaf74abfff296a4546091accb
-      size: 3245024
+      md5: 5065f3fc7e5070b685b7510f88c2a182
+      size: 3223288
     - path: data/processed/train_y.npy
-      md5: d702dc5e10e218090ba4ec96516f867d
-      size: 43417
+      md5: 271cebb2df7e5878b1c03e59ffc011ad
+      size: 43131
     - path: data/processed/val_x.npy
-      md5: 05599222a64c3e7f41b35ebf983cda6a
-      size: 360672
+      md5: 1e3ed391065a85e3c960da5e1740875d
+      size: 358392
     - path: data/processed/val_y.npy
-      md5: 7656977446ae56b1492dcf24914fc11d
-      size: 5427
+      md5: c9cdba3bd59d4bbe9e97f871dad600bd
+      size: 5397
   to_categorical:
     cmd: python3 src/stages/to_categorical.py params.yaml
     deps:
@@ -147,14 +147,14 @@ stages:
       md5: 686ebec95d4f9c235509b9792f7cf49f
       size: 19357
     - path: data/processed/test_y.npy
-      md5: 9e08db4407c1c85fafde56e7ca33543c
-      size: 5955
+      md5: 4dbf0c9d4c740c4f785e88ada59bf53f
+      size: 5919
     - path: data/processed/train_y.npy
-      md5: d702dc5e10e218090ba4ec96516f867d
-      size: 43417
+      md5: 271cebb2df7e5878b1c03e59ffc011ad
+      size: 43131
     - path: data/processed/val_y.npy
-      md5: 7656977446ae56b1492dcf24914fc11d
-      size: 5427
+      md5: c9cdba3bd59d4bbe9e97f871dad600bd
+      size: 5397
     - path: src/stages/to_categorical.py
       md5: 56e2e61ee1e82b3fe07f51c7e6da59e4
       size: 2397
@@ -163,14 +163,14 @@ stages:
       md5: e4753e128f96ab4823edc6b1ec3d4164
       size: 74768
     - path: data/processed/test_y_encoder.npy
-      md5: ecc77020cbab09fbd2ff9b1ef0b8ce77
-      size: 21216
+      md5: 55b88ee76bc60e74063d281a7fb55271
+      size: 21072
     - path: data/processed/train_y_encoder.npy
-      md5: 8c7c541effa4f2e6a643c549a9645087
-      size: 170912
+      md5: 965d380bdb57607b2616f75209392c2f
+      size: 169768
     - path: data/processed/val_y_encoder.npy
-      md5: d2d9136469e360b266be56f1e71f9dd3
-      size: 19104
+      md5: fd899e28ab6fa046604f799933669b4c
+      size: 18984
     - path: models/skelet_hand_f19.json
       md5: f7f62bee2f36a3f9b7e828e34d5e4573
       size: 727
@@ -178,17 +178,17 @@ stages:
     cmd: python3 src/stages/train.py params.yaml
     deps:
     - path: data/processed/train_x.npy
-      md5: c625069aaf74abfff296a4546091accb
-      size: 3245024
+      md5: 5065f3fc7e5070b685b7510f88c2a182
+      size: 3223288
     - path: data/processed/train_y_encoder.npy
-      md5: 8c7c541effa4f2e6a643c549a9645087
-      size: 170912
+      md5: 965d380bdb57607b2616f75209392c2f
+      size: 169768
     - path: data/processed/val_x.npy
-      md5: 05599222a64c3e7f41b35ebf983cda6a
-      size: 360672
+      md5: 1e3ed391065a85e3c960da5e1740875d
+      size: 358392
     - path: data/processed/val_y_encoder.npy
-      md5: d2d9136469e360b266be56f1e71f9dd3
-      size: 19104
+      md5: fd899e28ab6fa046604f799933669b4c
+      size: 18984
     - path: src/stages/train.py
       md5: 17efd98b9f1e732052f5b5821232a87b
       size: 3121
@@ -197,11 +197,11 @@ stages:
         train.epochs: 1200
     outs:
     - path: models/skelet_hand_f19.h5
-      md5: 498245caf08a46f21c92c48b0a3e5af3
+      md5: 7ef682ab0b65ee81536088f5e9fe4aee
       size: 69800
     - path: reports/train_history.csv
-      md5: a2b3a04acff412818fc40e13363202e2
-      size: 97155
+      md5: f29a722a67b6c8e2a9977bef2ee955b5
+      size: 97497
   predict:
     cmd: python3 src/stages/predict.py params.yaml
     deps:
@@ -209,45 +209,45 @@ stages:
       md5: 0ad4cce2a475e7cf300649df96b2614c
       size: 1418288
     - path: data/processed/test_x.npy
-      md5: 28f8017be5208d7c901c3715ac4c89b2
-      size: 400800
+      md5: 582ff2dc322b1fdb51af97a7efb88be0
+      size: 398064
     - path: data/processed/train_x.npy
-      md5: c625069aaf74abfff296a4546091accb
-      size: 3245024
+      md5: 5065f3fc7e5070b685b7510f88c2a182
+      size: 3223288
     - path: data/processed/val_x.npy
-      md5: 05599222a64c3e7f41b35ebf983cda6a
-      size: 360672
+      md5: 1e3ed391065a85e3c960da5e1740875d
+      size: 358392
     - path: models/skelet_hand_f19.h5
-      md5: 498245caf08a46f21c92c48b0a3e5af3
+      md5: 7ef682ab0b65ee81536088f5e9fe4aee
       size: 69800
     - path: src/stages/predict.py
       md5: d9b5fdae0131b7d8eaa753a5b3b239b4
       size: 4356
     outs:
     - path: data/processed/test2_y_pred.npy
-      md5: da9dcac8c33e85210d16c3570504ee13
+      md5: 1ebe3874e13d0366154c909f497aba23
       size: 149408
     - path: data/processed/test2_y_pred_proba.npy
-      md5: fad0b994772fa58669cfc696e48e675c
+      md5: f5f28d73f5b214c09f10caf28e0a586b
       size: 1642208
     - path: data/processed/test_y_pred.npy
-      md5: 5bb652a47bb15b22fe41d9bc1935f130
-      size: 42304
+      md5: 223e671cd7a4a2483cfb2e17896bff97
+      size: 42016
     - path: data/processed/test_y_pred_proba.npy
-      md5: f6631bc062e9209b5dfe80d58e9758a9
-      size: 464064
+      md5: 9dcba745b5d00f057474d1600538cbe3
+      size: 460896
     - path: data/processed/train_y_pred.npy
-      md5: 199374908fbca007179437ff8015dedf
-      size: 341696
+      md5: 2f6482bfa71a58b30ad8f05ba6ba006a
+      size: 339408
     - path: data/processed/train_y_pred_proba.npy
-      md5: fcd89dce2b3e462f094f17b0bdc55be1
-      size: 3757376
+      md5: b047c7589c72a96937b0351b83cd9a78
+      size: 3732208
     - path: data/processed/val_y_pred.npy
-      md5: 2471f871507352175d32421171272dba
-      size: 38080
+      md5: ced8d98c58d9f4ae892a52328280a8e3
+      size: 37840
     - path: data/processed/val_y_pred_proba.npy
-      md5: 3e8e19611d1e6640bbbb761847cf2a50
-      size: 417600
+      md5: 590d4707a024bb6db16aa7a43c7b9536
+      size: 414960
   evaluate:
     cmd: python3 src/stages/evaluate.py params.yaml
     deps:
@@ -255,53 +255,53 @@ stages:
       md5: 686ebec95d4f9c235509b9792f7cf49f
       size: 19357
     - path: data/processed/test2_y_pred.npy
-      md5: da9dcac8c33e85210d16c3570504ee13
+      md5: 1ebe3874e13d0366154c909f497aba23
       size: 149408
     - path: data/processed/test2_y_pred_proba.npy
-      md5: fad0b994772fa58669cfc696e48e675c
+      md5: f5f28d73f5b214c09f10caf28e0a586b
       size: 1642208
     - path: data/processed/test_y.npy
-      md5: 9e08db4407c1c85fafde56e7ca33543c
-      size: 5955
+      md5: 4dbf0c9d4c740c4f785e88ada59bf53f
+      size: 5919
     - path: data/processed/test_y_pred.npy
-      md5: 5bb652a47bb15b22fe41d9bc1935f130
-      size: 42304
+      md5: 223e671cd7a4a2483cfb2e17896bff97
+      size: 42016
     - path: data/processed/test_y_pred_proba.npy
-      md5: f6631bc062e9209b5dfe80d58e9758a9
-      size: 464064
+      md5: 9dcba745b5d00f057474d1600538cbe3
+      size: 460896
     - path: data/processed/train_y.npy
-      md5: d702dc5e10e218090ba4ec96516f867d
-      size: 43417
+      md5: 271cebb2df7e5878b1c03e59ffc011ad
+      size: 43131
     - path: data/processed/train_y_pred.npy
-      md5: 199374908fbca007179437ff8015dedf
-      size: 341696
+      md5: 2f6482bfa71a58b30ad8f05ba6ba006a
+      size: 339408
     - path: data/processed/train_y_pred_proba.npy
-      md5: fcd89dce2b3e462f094f17b0bdc55be1
-      size: 3757376
+      md5: b047c7589c72a96937b0351b83cd9a78
+      size: 3732208
     - path: data/processed/val_y.npy
-      md5: 7656977446ae56b1492dcf24914fc11d
-      size: 5427
+      md5: c9cdba3bd59d4bbe9e97f871dad600bd
+      size: 5397
     - path: data/processed/val_y_pred.npy
-      md5: 2471f871507352175d32421171272dba
-      size: 38080
+      md5: ced8d98c58d9f4ae892a52328280a8e3
+      size: 37840
     - path: data/processed/val_y_pred_proba.npy
-      md5: 3e8e19611d1e6640bbbb761847cf2a50
-      size: 417600
+      md5: 590d4707a024bb6db16aa7a43c7b9536
+      size: 414960
     - path: src/stages/evaluate.py
       md5: 64fc67e2701ad4b10ad50217913a608b
       size: 9018
     outs:
     - path: reports/test.json
-      md5: ba84020e578104d3beda604aee03ed7c
-      size: 31
-    - path: reports/test2.json
-      md5: 094679e19b624a210960a4091e60a4cb
+      md5: 6eab834128c6559a064b1d8e4f75b2ce
       size: 30
+    - path: reports/test2.json
+      md5: ae3cb8f2a86d1da33aa87daadf1a43c2
+      size: 31
     - path: reports/train.json
-      md5: 0953d3ee1cbf5d6ed061df6d33035d94
+      md5: d844f8590be6aefd64181e95659923d5
       size: 31
     - path: reports/val.json
-      md5: 6d38361a823ece9d58324c630909b607
+      md5: b48258c8a4532f9c51887e654a941650
       size: 31
   app:
     cmd: python3 src/stages/app.py params.yaml
@@ -311,7 +311,7 @@ stages:
       size: 282910552
       nfiles: 32
     - path: models/skelet_hand_f19.h5
-      md5: 498245caf08a46f21c92c48b0a3e5af3
+      md5: 7ef682ab0b65ee81536088f5e9fe4aee
       size: 69800
     - path: models/skelet_hand_f19.json
       md5: f7f62bee2f36a3f9b7e828e34d5e4573
@@ -321,7 +321,7 @@ stages:
       size: 2805
     outs:
     - path: reports/app.json
-      md5: 0f5e7f4dae5dbd71f90ab4843b7b82ef
+      md5: ddbd266bfaf841a60800d3fedd292a70
       size: 54
   reduce_label:
     cmd: python3 src/stages/reduce_label.py params.yaml
@@ -366,5 +366,5 @@ stages:
       size: 5320
     outs:
     - path: data/interim/train_val_test_balance.csv
-      md5: bf3574192537e6cc26dfc36e47edf830
-      size: 5602981
+      md5: a59e24f7cff4cd9622ae78dd62481418
+      size: 5575145
