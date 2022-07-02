@@ -351,8 +351,8 @@ stages:
     cmd: python3 big/src/stages/make_imbalance.py params.yaml
     deps:
     - path: big/src/stages/make_imbalance.py
-      md5: a9e9e443663f8e79e231919dd0e6abcb
-      size: 1826
+      md5: 3af5f5fd680a03e48812d53ae611956b
+      size: 1843
     - path: data/interim/train_val_test.csv
       md5: c6a4c02cadd5ff7303ea12c2e9a7d332
       size: 168300
