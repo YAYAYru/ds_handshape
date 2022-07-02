@@ -55,6 +55,14 @@ stages:
     - ${split_by_folder.outs.path_train_val_test_csv}
     - ${split_by_folder.outs.path_test2_csv}
 
+  make_imbalance:
+    cmd: python3 big/src/stages/make_imbalance.py params.yaml
+    deps:
+    - big/src/stages/make_imbalance.py
+    - ${make_imbalance.deps.path_train_val_test_csv}
+    outs:
+    - ${make_imbalance.outs.path_train_val_test_csv_balance}
+
   split_trainval_test:
     cmd: python3 big/src/stages/split_trainval_test.py params.yaml
     deps:

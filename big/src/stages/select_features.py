@@ -20,7 +20,8 @@ def select_features(path_params_yaml: str):
     df_test = pd.read_csv(params_yaml_own["deps"]["path_test_csv"])
     df_test2 = pd.read_csv(params_yaml_own["deps"]["path_test2_csv"])
     
-    select_droping_features = ["fsw", "videoframe", "filename", "foldername"]
+    # select_droping_features = ["fsw", "videoframe", "filename", "foldername"]
+    select_droping_features = ["fsw"]
 
     np_train_x = df_train.drop(select_droping_features, axis=1).to_numpy()
     path = params_yaml_own["outs"]["path_train_x"]
@@ -37,6 +38,7 @@ def select_features(path_params_yaml: str):
     np.save(path, np_test_x)
     print("np_test_x.shape", np_test_x.shape, "saved:", path)
 
+    select_droping_features = ["fsw", "videoframe", "filename", "foldername"]
     np_test2_x = df_test2.drop(select_droping_features, axis=1).to_numpy()
     path = params_yaml_own["outs"]["path_test2_x"]
     np.save(path, np_test2_x)

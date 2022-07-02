@@ -40,11 +40,19 @@ split_by_folder:
     path_train_val_test_csv: data/interim/train_val_test.csv
     path_test2_csv: data/interim/test2.csv
 
+make_imbalance:
+  # method: undersampling or oversampling
+  method: "undersampling"
+  deps:
+    path_train_val_test_csv: data/interim/train_val_test.csv
+  outs:
+    path_train_val_test_csv_balance: data/interim/train_val_test_balance.csv
+
 split_trainval_test:
   test_size: 0.1
   random_state: 42
   deps:
-    path_angle_19f_handshape_csv: data/interim/train_val_test.csv
+    path_angle_19f_handshape_csv: data/interim/train_val_test_balance.csv
   outs:
     path_train_val_csv: data/processed/train_val.csv
     path_test_csv: data/processed/test.csv

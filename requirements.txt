@@ -27,3 +27,4 @@ pycm
 
 screeninfo==0.8
 sk-video==1.1.10
+imbalanced-learn==0.9.1
