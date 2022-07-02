@@ -189,11 +189,11 @@ stages:
         train.epochs: 100
     outs:
     - path: models/skelet_hand_f19.h5
-      md5: 56b0b124b3aef64cb9d75d48bcc6fa9c
+      md5: b0969bf6664cae2f19a3eb712ab2c469
       size: 56656
     - path: reports/train_history.csv
-      md5: 2c2214a23b9f5e136eb4a0ca5305b063
-      size: 8034
+      md5: 97a1f917fe78dbc3a91621f2b69cb35f
+      size: 8031
   predict:
     cmd: python3 big/src/stages/predict.py params.yaml
     deps:
@@ -213,32 +213,32 @@ stages:
       md5: ef9d4e669c343f7992dea990fdebd97a
       size: 9096
     - path: models/skelet_hand_f19.h5
-      md5: 56b0b124b3aef64cb9d75d48bcc6fa9c
+      md5: b0969bf6664cae2f19a3eb712ab2c469
       size: 56656
     outs:
     - path: data/processed/test2_y_pred.npy
-      md5: e972ce44124118b4772283e80a2efebe
+      md5: 136276d34ca351cb74cc6f494052489f
       size: 12416
     - path: data/processed/test2_y_pred_proba.npy
-      md5: 35c8a525fe4c4b57909edc583d8bbcb9
+      md5: cf176e46371ff90e10e605e89a3d76a0
       size: 9344
     - path: data/processed/test_y_pred.npy
-      md5: 1abbcbae8a194536f3de9fdee7790c18
+      md5: bc8a9f71d406b0339eabbc7b51c07584
       size: 1168
     - path: data/processed/test_y_pred_proba.npy
-      md5: 83e14569097d897459679ea9be24883e
+      md5: 2f90386436a2c6bdfb8361ee7c95ea84
       size: 908
     - path: data/processed/train_y_pred.npy
-      md5: f4e7092643d63d9abdac6ea743cb296e
+      md5: 9eefb6d2095194eaf6522b5403422d3c
       size: 8512
     - path: data/processed/train_y_pred_proba.npy
-      md5: 75148f8afba3ccefe17699286ace74fb
+      md5: 85ac4f5a5b6e5f68e7eb20eca38ac82b
       size: 6416
     - path: data/processed/val_y_pred.npy
       md5: 7e6e7e32e7b224c41246dee9e9300bb1
       size: 1072
     - path: data/processed/val_y_pred_proba.npy
-      md5: 7bbfd08b85275c3e0c42a5e68598b3ab
+      md5: 13f2047b001d35934cf016e3cbcc67f9
       size: 836
   evaluate:
     cmd: python3 big/src/stages/evaluate.py params.yaml
@@ -250,28 +250,28 @@ stages:
       md5: 093c3a22b39b7a394dfcf397bbd41d8a
       size: 1846
     - path: data/processed/test2_y_pred.npy
-      md5: e972ce44124118b4772283e80a2efebe
+      md5: 136276d34ca351cb74cc6f494052489f
       size: 12416
     - path: data/processed/test2_y_pred_proba.npy
-      md5: 35c8a525fe4c4b57909edc583d8bbcb9
+      md5: cf176e46371ff90e10e605e89a3d76a0
       size: 9344
     - path: data/processed/test_y.npy
       md5: 83e8a06bf33548750686f2f3fe63b92d
       size: 439
     - path: data/processed/test_y_pred.npy
-      md5: 1abbcbae8a194536f3de9fdee7790c18
+      md5: bc8a9f71d406b0339eabbc7b51c07584
       size: 1168
     - path: data/processed/test_y_pred_proba.npy
-      md5: 83e14569097d897459679ea9be24883e
+      md5: 2f90386436a2c6bdfb8361ee7c95ea84
       size: 908
     - path: data/processed/train_y.npy
       md5: b5ac586fae4099a2769cda642a28cc96
       size: 1358
     - path: data/processed/train_y_pred.npy
-      md5: f4e7092643d63d9abdac6ea743cb296e
+      md5: 9eefb6d2095194eaf6522b5403422d3c
       size: 8512
     - path: data/processed/train_y_pred_proba.npy
-      md5: 75148f8afba3ccefe17699286ace74fb
+      md5: 85ac4f5a5b6e5f68e7eb20eca38ac82b
       size: 6416
     - path: data/processed/val_y.npy
       md5: 92a56c27cd8be46382ae5522feeb64ed
@@ -280,20 +280,20 @@ stages:
       md5: 7e6e7e32e7b224c41246dee9e9300bb1
       size: 1072
     - path: data/processed/val_y_pred_proba.npy
-      md5: 7bbfd08b85275c3e0c42a5e68598b3ab
+      md5: 13f2047b001d35934cf016e3cbcc67f9
       size: 836
     outs:
     - path: reports/test.json
-      md5: a9a26b6acbb1297cd980870cdcc404d4
-      size: 31
+      md5: 0daf0e7d7a5c28e409bfc535738ea8a6
+      size: 28
     - path: reports/test2.json
-      md5: ddd8808cfb59995a049f58e12e8572bd
+      md5: 62db52f7c7ed67d6e41374fec89feadb
       size: 31
     - path: reports/train.json
-      md5: c3852c914752c72009caa2d9f4559267
-      size: 31
+      md5: db43f949d57a73f17668c897ee1a28a1
+      size: 30
     - path: reports/val.json
-      md5: be788f87af77439dfebf01e84feabb42
+      md5: 4e3b0ef63087848fb2be3de9471cdb08
       size: 31
   app:
     cmd: python3 big/src/stages/app.py params.yaml
@@ -306,14 +306,14 @@ stages:
       size: 282910552
       nfiles: 32
     - path: models/skelet_hand_f19.h5
-      md5: 56b0b124b3aef64cb9d75d48bcc6fa9c
+      md5: b0969bf6664cae2f19a3eb712ab2c469
       size: 56656
     - path: models/skelet_hand_f19.json
       md5: 87a56a2619349785ef91a50059c21d35
       size: 71
     outs:
     - path: reports/app.json
-      md5: 1fb6adc4dcfdf9310477d03f81f2ffc2
+      md5: f70aaab485ee57e791aa979e27ce3b02
       size: 54
   reduce_label:
     cmd: python3 big/src/stages/reduce_label.py params.yaml
