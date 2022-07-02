@@ -47,7 +47,7 @@ def make_imbalance(path_params_yaml: str):
     print(f'Distribution imbalancing classes\n: {c}')
     
 
-    if method=="undersampling":
+    if method=="undersampling_ClusterCentroids":
         df = undersampling(df)
     
     c = Counter(df["fsw"])
