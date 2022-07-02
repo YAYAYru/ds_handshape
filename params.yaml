@@ -41,8 +41,15 @@ split_by_folder:
     path_test2_csv: data/interim/test2.csv
 
 make_imbalance:
-  # method: undersampling_ClusterCentroids or oversampling
-  method: "undersampling_ClusterCentroids"
+  # method: 
+  # - undersampling_RandomUnderSampler
+  # - undersampling_ClusterCentroids
+  # - undersampling_EditedNearestNeighbours
+  # - undersampling_AllKNN
+  # - undersampling_EditedNearestNeighbours_ClusterCentroids
+  # - undersampling_AllKNN_ClusterCentroids
+  # - undersampling_NearMiss не очень
+  method: "undersampling_EditedNearestNeighbours_ClusterCentroids"
   deps:
     path_train_val_test_csv: data/interim/train_val_test.csv
   outs:

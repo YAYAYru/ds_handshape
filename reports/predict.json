@@ -1,1 +1,1 @@
-{"mean_train_runtime": 0.000635, "mean_val_runtime": 0.000371, "mean_test_runtime": 0.00132, "mean_test2_runtime": 6.5e-05}
+{"mean_train_runtime": 0.000596, "mean_val_runtime": 0.000491, "mean_test_runtime": 0.001373, "mean_test2_runtime": 5.6e-05}
