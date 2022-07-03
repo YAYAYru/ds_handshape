@@ -71,7 +71,7 @@ def undersampling_EditedNearestNeighbours_ClusterCentroids(df):
     df2np2df = Df2np2df()
     X, y = df2np2df.df2np(df)
 
-    enn = EditedNearestNeighbours(kind_sel="all")
+    enn = EditedNearestNeighbours(kind_sel="mode")
     X_resampled, y_resampled = enn.fit_resample(X, y)
 
     ros = ClusterCentroids(random_state=0)

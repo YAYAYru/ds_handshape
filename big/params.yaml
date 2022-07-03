@@ -49,7 +49,7 @@ make_imbalance:
   # - undersampling_EditedNearestNeighbours_ClusterCentroids
   # - undersampling_AllKNN_ClusterCentroids
   # - undersampling_NearMiss не очень
-  method: "undersampling_EditedNearestNeighbours"
+  method: "undersampling_AllKNN"
   deps:
     path_train_val_test_csv: data/interim/train_val_test.csv
   outs:
